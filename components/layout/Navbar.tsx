@@ -7,11 +7,7 @@ import { navigation, siteConfig } from "@/config/site";
 const Wordmark = () => (
   <span className="wordmark" aria-hidden="true">
     <span className="wordmark-name">Amazing Grace</span>
-    <span className="wordmark-rule">
-      <i />
-      Antiques
-      <i />
-    </span>
+    <span className="wordmark-rule">Antiques</span>
   </span>
 );
 
@@ -37,10 +33,10 @@ const Navbar = () => {
   return (
     <header className="sticky inset-x-0 top-0 z-50 border-b border-(--border) bg-(--cream)/96 backdrop-blur-md">
       <div className="border-b border-(--border) bg-(--olive) text-(--cream)">
-        <div className="mx-auto flex min-h-8 max-w-(--container-width) items-center justify-between gap-4 px-5 py-1.5 text-[0.59rem] font-bold uppercase tracking-[0.18em] sm:px-8 sm:text-[0.66rem] lg:px-10">
+        <div className="mx-auto flex min-h-8 max-w-(--container-width) items-center justify-between gap-4 px-5 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.1em] sm:px-8 lg:px-10">
           <p>{siteConfig.announcement.message}</p>
           <Link href={siteConfig.announcement.href} className="hidden text-(--gold-light) transition hover:text-white sm:block">
-            {siteConfig.announcement.actionLabel} →
+            {siteConfig.announcement.actionLabel}
           </Link>
         </div>
       </div>
@@ -58,7 +54,7 @@ const Navbar = () => {
             <Link
               key={item.label}
               href={item.href}
-              className="nav-link py-3 text-[0.69rem] font-bold uppercase tracking-[0.14em] text-(--ink)"
+              className="nav-link py-3 text-[0.72rem] font-bold uppercase tracking-[0.09em] text-(--ink) transition-colors hover:text-(--burgundy)"
             >
               {item.label}
             </Link>
@@ -92,17 +88,14 @@ const Navbar = () => {
       {isMenuOpen && (
         <div id="mobile-navigation-menu" className="fixed inset-x-0 top-[114px] h-[calc(100dvh-114px)] border-t border-(--border) bg-(--cream) p-5 sm:top-[124px] sm:h-[calc(100dvh-124px)] xl:hidden">
           <div className="mx-auto grid max-w-(--container-width)">
-            {navigation.map((item, index) => (
+            {navigation.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center justify-between border-b border-(--border) px-2 py-4 font-heading text-2xl text-(--olive)"
+                className="border-b border-(--border) px-2 py-4 font-heading text-2xl text-(--olive)"
               >
-                <span>{item.label}</span>
-                <span className="font-sans text-[0.62rem] tracking-[0.16em] text-(--muted)" aria-hidden="true">
-                  0{index + 1}
-                </span>
+                {item.label}
               </Link>
             ))}
             <div className="mt-8 grid gap-2 text-sm text-(--muted)">

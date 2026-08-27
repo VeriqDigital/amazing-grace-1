@@ -15,7 +15,7 @@ const Section = ({ children, id, tone = "ivory", className = "" }: SectionProps)
   };
 
   return (
-    <section id={id} className={`scroll-mt-28 py-20 sm:py-24 lg:py-32 ${toneClasses[tone]} ${className}`}>
+    <section id={id} className={`scroll-mt-28 py-16 sm:py-20 lg:py-24 ${toneClasses[tone]} ${className}`}>
       <Container>{children}</Container>
     </section>
   );

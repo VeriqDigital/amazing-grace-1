@@ -24,17 +24,16 @@ export default function ContactPage() {
     <>
       <section className="border-b border-white/15 bg-(--olive) py-16 text-(--cream) sm:py-20 lg:py-24">
         <Container>
-          <div className="grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+          <div>
             <div className="max-w-4xl">
-              <p className="eyebrow ornament text-(--gold-light)">Contact the shop</p>
+              <p className="eyebrow text-(--gold-light)">Contact the shop</p>
               <h1 className="text-balance mt-5 font-heading text-6xl font-medium leading-[0.86] tracking-[-0.045em] sm:text-7xl lg:text-8xl">
-                Let’s talk about <span className="italic text-(--gold-light)">what you found.</span>
+                Let’s talk about <span className="italic">what you found.</span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-(--cream)/65">
                 Questions, visit details, and antique inquiries are all welcome. Send a note below or reach the shop directly.
               </p>
             </div>
-            <p className="hidden font-heading text-8xl italic text-white/[0.08] lg:block" aria-hidden="true">AG</p>
           </div>
         </Container>
       </section>
@@ -56,7 +55,7 @@ export default function ContactPage() {
                   <p>{siteConfig.contact.addressLine1}</p>
                   <p>{siteConfig.contact.city}, {siteConfig.contact.state} {siteConfig.contact.postalCode}</p>
                   <a href={siteConfig.contact.phoneHref} className="mt-5 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{siteConfig.contact.phone}</a>
-                  <a href={siteConfig.contact.emailHref} className="mt-1 block break-all text-sm hover:text-(--burgundy)">{siteConfig.contact.email}</a>
+                  <a href={siteConfig.contact.emailHref} className="mt-1 block break-all text-base hover:text-(--burgundy)">{siteConfig.contact.email}</a>
                 </address>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
                   <Button href={siteConfig.contact.mapUrl} newTab>Get Directions</Button>
@@ -66,7 +65,7 @@ export default function ContactPage() {
 
               <div className="border border-(--border-dark) bg-(--cream) p-7 sm:p-9">
                 <p className="eyebrow text-(--burgundy)">Store hours</p>
-                <dl className="mt-6 space-y-3 text-sm">
+                <dl className="mt-6 space-y-3 text-base">
                   {siteConfig.hours.map(({ day, hours }) => (
                     <div key={day} className="flex justify-between gap-5 border-b border-(--border) pb-3 last:border-0 last:pb-0">
                       <dt className="text-(--muted)">{day}</dt>
@@ -74,7 +73,7 @@ export default function ContactPage() {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-5 text-xs leading-6 text-(--muted)">Holiday hours may vary. Call ahead before making a long trip.</p>
+                <p className="mt-5 text-sm leading-6 text-(--muted)">Holiday hours may vary. Call ahead before making a long trip.</p>
               </div>
             </aside>
           </div>

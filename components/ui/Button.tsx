@@ -20,7 +20,7 @@ const Button = ({
   disabled,
 }: ButtonProps) => {
   const baseClasses =
-    "button group inline-flex min-h-12 items-center justify-center gap-3 border px-6 py-3 text-[0.7rem] font-bold uppercase tracking-[0.16em] transition duration-200";
+    "inline-flex min-h-12 items-center justify-center border px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] transition-colors duration-200";
 
   const variantClasses = {
     primary:
@@ -31,14 +31,7 @@ const Button = ({
       "border-(--cream) bg-(--cream) text-(--olive) hover:border-(--gold) hover:bg-(--gold) hover:text-(--ink)",
   };
 
-  const contents = (
-    <>
-      <span>{children}</span>
-      <span aria-hidden="true" className="text-base transition-transform group-hover:translate-x-1">
-        →
-      </span>
-    </>
-  );
+  const contents = <span>{children}</span>;
 
   if (href) {
     return (

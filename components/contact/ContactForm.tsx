@@ -92,8 +92,8 @@ const ContactForm = () => {
         </div>
       )}
 
-      <button type="submit" disabled={pending} className="button group mt-7 inline-flex min-h-12 items-center justify-center gap-3 border border-(--olive) bg-(--olive) px-6 py-3 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-(--cream) transition hover:border-(--olive-light) hover:bg-(--olive-light) disabled:cursor-wait disabled:opacity-60">
-        <span>{pending ? "Sending…" : "Send Message"}</span><span aria-hidden="true">→</span>
+      <button type="submit" disabled={pending} className="mt-7 inline-flex min-h-12 items-center justify-center border border-(--olive) bg-(--olive) px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-(--cream) transition-colors hover:border-(--olive-light) hover:bg-(--olive-light) disabled:cursor-wait disabled:opacity-60">
+        <span>{pending ? "Sending…" : "Send Message"}</span>
       </button>
     </form>
   );
