@@ -20,7 +20,7 @@ export async function submitContactForm(
   if (honeypot) {
     return {
       status: "success",
-      message: "Thanks. Your message has been sent to the Big Wicks team.",
+      message: "Thank you. Your note has been received.",
       submittedAt: Date.now(),
     };
   }
@@ -69,12 +69,12 @@ export async function submitContactForm(
     console.error("Contact form email delivery is missing required environment configuration.");
     return {
       status: "error",
-      message: `Online messaging is temporarily unavailable. Please call the store at ${siteConfig.contact.phone}.`,
+      message: `Online messaging is temporarily unavailable. Please call the shop at ${siteConfig.contact.phone}.`,
     };
   }
 
   const emailText = [
-    "New Big Wicks website inquiry",
+    "New Amazing Grace Antiques website inquiry",
     "",
     `Name: ${name}`,
     `Email: ${email}`,
@@ -93,13 +93,13 @@ export async function submitContactForm(
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "Idempotency-Key": `big-wicks-contact-${crypto.randomUUID()}`,
+        "Idempotency-Key": `amazing-grace-contact-${crypto.randomUUID()}`,
       },
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
         reply_to: email,
-        subject: `[Big Wicks Website] ${selectedSubject?.label} — ${name}`,
+        subject: `[Amazing Grace Antiques] ${selectedSubject?.label} — ${name}`,
         text: emailText,
       }),
       cache: "no-store",
@@ -109,20 +109,20 @@ export async function submitContactForm(
       console.error(`Contact form email delivery failed with status ${response.status}.`);
       return {
         status: "error",
-        message: "We could not send your message right now. Please try again or call the store.",
+        message: "We could not send your message right now. Please try again or call the shop.",
       };
     }
   } catch (error) {
     console.error("Contact form email delivery failed.", error);
     return {
       status: "error",
-      message: "We could not send your message right now. Please try again or call the store.",
+      message: "We could not send your message right now. Please try again or call the shop.",
     };
   }
 
   return {
     status: "success",
-    message: "Thanks. Your message has been sent to the Big Wicks team.",
+    message: "Thank you. Your message has been sent to Amazing Grace Antiques.",
     submittedAt: Date.now(),
   };
 }

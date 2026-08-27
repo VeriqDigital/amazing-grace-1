@@ -1,50 +1,56 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { siteConfig } from "@/config/site";
+import Container from "@/components/ui/Container";
+import heroImage from "@/public/images/hero/shop-interior-furniture.jpg";
+import signImage from "@/public/images/branding/store-sign-close.jpg";
 
 const Hero = () => (
-  <section className="relative isolate min-h-[680px] overflow-hidden bg-[#151517] sm:min-h-[740px] lg:min-h-[860px] xl:min-h-[900px]">
-    <Image
-      src="/images/store/big-wicks-storefront-front.jpg"
-      alt="The Big Wicks Fireworks storefront in La Porte, Indiana"
-      fill
-      className="-z-30 object-cover object-[center_38%] sm:object-[center_34%] lg:object-[center_26%] xl:object-[center_24%]"
-      sizes="100vw"
-      preload
-      quality={90}
-    />
-    <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(14,14,16,0.84)_0%,rgba(14,14,16,0.67)_42%,rgba(14,14,16,0.36)_100%)] lg:bg-[linear-gradient(90deg,rgba(14,14,16,0.86)_0%,rgba(14,14,16,0.7)_28%,rgba(14,14,16,0.24)_48%,rgba(14,14,16,0.05)_64%,transparent_78%)]" />
-
-    <div className="mx-auto flex min-h-[680px] w-full max-w-(--container-width) items-center px-6 py-16 sm:min-h-[740px] lg:min-h-[860px] xl:min-h-[900px]">
-      <div className="max-w-[760px]">
-        <p className="mb-6 text-sm font-bold text-white/90">
-          Big Wicks Fireworks · La Porte, Indiana
-        </p>
-        <h1 className="text-balance font-heading text-[3.6rem] font-bold uppercase leading-[0.84] tracking-[-0.035em] text-white sm:text-7xl md:text-8xl lg:text-[6.7rem]">
-          Skip the rest.
-          <span className="mt-2 block text-[#ff5963]">Shop with the best.</span>
+  <section className="relative overflow-hidden border-b border-(--border) bg-(--cream)">
+    <div className="pointer-events-none absolute -left-8 top-1/2 hidden -translate-y-1/2 font-heading text-[12rem] italic leading-none text-(--olive)/[0.035] lg:block" aria-hidden="true">
+      AG
+    </div>
+    <Container className="relative grid min-h-[calc(100svh-114px)] items-center gap-14 py-14 sm:py-20 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20 lg:py-24">
+      <div className="relative z-10 max-w-2xl">
+        <p className="eyebrow ornament text-(--burgundy)">Antiques · Collectibles · Vintage</p>
+        <h1 className="text-balance mt-7 font-heading text-[clamp(4rem,8.2vw,7.7rem)] font-medium leading-[0.78] tracking-[-0.055em] text-(--olive)">
+          Timeless finds.
+          <span className="mt-3 block font-normal italic text-(--burgundy)">Stories worth keeping.</span>
         </h1>
-        <div className="mt-7 flex max-w-2xl gap-4">
-          <span className="w-1 shrink-0 bg-(--red)" aria-hidden="true" />
-          <p className="text-lg leading-8 text-white/90 sm:text-xl">
-            A huge in-store selection for family fun, backyard celebrations, and
-            finale-worthy nights brought to you by friendly people who can help
-            you choose.
-          </p>
-        </div>
+        <p className="mt-8 max-w-xl text-base leading-8 text-(--muted) sm:text-lg">
+          Wander through a wide-ranging collection of antiques, vintage pieces, jewelry, home décor, artisan goods, and the treasures you never knew you were looking for.
+        </p>
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-          <Button href="/#shop">Shop Fireworks</Button>
-          <Button href={siteConfig.contact.mapUrl} newTab variant="secondary">
-            Visit The Store
-          </Button>
+          <Button href="/#visit">Visit the Shop</Button>
+          <Button href="/#sell" variant="outline">Sell an Antique</Button>
         </div>
-        <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 border-t border-white/25 pt-5 text-xs font-bold uppercase tracking-[0.08em] text-white/80">
-          <span>Open 7 days</span>
-          <span>3 miles south of New Buffalo</span>
-          <span>Helpful staff</span>
+        <div className="mt-12 flex items-center gap-4 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-(--muted)">
+          <span className="font-heading text-2xl font-medium italic tracking-normal text-(--gold)">No. 01</span>
+          <span className="h-px w-12 bg-(--border-dark)" />
+          <span>Downtown Lufkin, Texas</span>
         </div>
       </div>
-    </div>
+
+      <div className="relative mx-auto w-full max-w-[660px] pb-9 pl-4 pr-5 pt-4 sm:pl-12 sm:pr-10 lg:pb-12">
+        <div className="absolute inset-x-0 bottom-0 top-14 border border-(--gold)" aria-hidden="true" />
+        <div className="hero-arch relative aspect-[4/5] overflow-hidden bg-[#d7ccb9] shadow-[0_24px_70px_rgba(45,39,29,0.16)]">
+          <Image
+            src={heroImage}
+            alt="An inviting display of antique furniture, tableware, and décor inside Amazing Grace Antiques"
+            fill
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 90vw, 50vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-(--olive)/5" />
+        </div>
+        <div className="absolute bottom-0 right-0 size-28 overflow-hidden rounded-full border-[6px] border-(--cream) bg-(--cream) shadow-lg sm:size-36 lg:-right-2 lg:size-40">
+          <Image src={signImage} alt="Amazing Grace Antiques floral storefront sign" fill className="object-cover" sizes="160px" />
+        </div>
+        <p className="absolute right-0 top-1/2 hidden -translate-y-1/2 translate-x-[58%] rotate-90 text-[0.58rem] font-bold uppercase tracking-[0.32em] text-(--brown) xl:block">
+          Curious pieces · Warm welcome
+        </p>
+      </div>
+    </Container>
   </section>
 );
 

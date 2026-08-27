@@ -1,49 +1,52 @@
 import type { Metadata } from "next";
-import { Barlow, Roboto_Condensed } from "next/font/google";
+import { Cormorant_Garamond, Lato } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const barlow = Barlow({
-  variable: "--font-barlow",
+const headingFont = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const robotoCondensed = Roboto_Condensed({
-  variable: "--font-roboto-condensed",
+const bodyFont = Lato({
+  variable: "--font-lato",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "Big Wicks Fireworks | La Porte, Indiana Fireworks Store",
+    default: "Amazing Grace Antiques | Lufkin, Texas",
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.shortName,
-  category: "retail",
+  category: "shopping",
   keywords: [
-    "fireworks store La Porte Indiana",
-    "fireworks near New Buffalo Michigan",
-    "Big Wicks Fireworks",
-    "Indiana fireworks",
+    "antiques Lufkin Texas",
+    "vintage shop Lufkin",
+    "collectibles Lufkin",
+    "Amazing Grace Antiques",
   ],
+  alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Big Wicks Fireworks | Drive By The Rest… Stop At The Best!",
+    title: "Amazing Grace Antiques | Timeless Finds in Lufkin",
     description: siteConfig.description,
     siteName: siteConfig.shortName,
     locale: siteConfig.locale,
     type: "website",
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Big Wicks Fireworks | La Porte, Indiana",
+    title: "Amazing Grace Antiques | Lufkin, Texas",
     description: siteConfig.description,
   },
 };
@@ -52,6 +55,7 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "Store",
   name: siteConfig.name,
+  url: siteConfig.siteUrl,
   description: siteConfig.description,
   telephone: siteConfig.contact.phone,
   email: siteConfig.contact.email,
@@ -64,13 +68,13 @@ const localBusinessJsonLd = {
     postalCode: siteConfig.contact.postalCode,
     addressCountry: "US",
   },
-  openingHours: siteConfig.hours.map(({ schema }) => schema),
+  openingHours: siteConfig.hours.flatMap(({ schema }) => (schema ? [schema] : [])),
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${barlow.variable} ${robotoCondensed.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
+    <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
+      <body className="flex min-h-dvh flex-col">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}

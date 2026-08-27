@@ -1,7 +1,7 @@
 export const contactSubjects = [
-  { value: "product", label: "Product Question" },
-  { value: "store", label: "Store Question" },
-  { value: "deals", label: "Deals / Promotions" },
+  { value: "selling", label: "Selling an Antique" },
+  { value: "item", label: "Item or Inventory Question" },
+  { value: "event", label: "Event or Announcement" },
   { value: "visit", label: "Visiting the Store" },
   { value: "general", label: "General Question" },
 ] as const;

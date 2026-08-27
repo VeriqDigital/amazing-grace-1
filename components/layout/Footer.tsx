@@ -1,136 +1,59 @@
-import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, siteConfig } from "@/config/site";
 
 const Footer = () => (
-  <footer className="w-full border-t border-[#303034] bg-[#151517] text-white">
-    <div className="mx-auto w-full max-w-(--container-width) px-6 py-16 lg:py-20">
-      <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.15fr_0.65fr_0.85fr_0.6fr_0.85fr] lg:gap-8">
+  <footer className="border-t border-white/10 bg-(--olive-deep) text-(--cream)">
+    <div className="mx-auto max-w-(--container-width) px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.35fr_0.7fr_1fr_0.8fr] lg:gap-10">
         <div>
-          <div className="relative h-28 w-full max-w-[330px]">
-            <Image
-              src="/Big wicks logo background removed.png"
-              alt="Big Wicks Fireworks"
-              fill
-              className="object-contain object-left"
-              sizes="330px"
-            />
-          </div>
-          <p className="mt-6 max-w-sm leading-7 text-[#b7b7b3]">
-            A huge fireworks selection, strong value, and friendly guidance just
-            south of New Buffalo.
-          </p>
-          <p className="mt-5 font-heading text-lg font-bold uppercase text-white">
-            Drive By The Rest…{" "}
-            <span className="text-[#ff6872]">Stop At The Best!</span>
+          <p className="font-heading text-4xl leading-none sm:text-5xl">Amazing Grace</p>
+          <p className="mt-2 text-[0.67rem] font-bold uppercase tracking-[0.4em] text-(--gold-light)">Antiques</p>
+          <p className="mt-7 max-w-sm text-sm leading-7 text-(--cream)/65">
+            A welcoming downtown Lufkin shop filled with antiques, collectibles, vintage pieces, and unexpected finds.
           </p>
         </div>
 
         <nav aria-label="Footer navigation">
-          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#ff5963]">
-            Explore
-          </h2>
-          <ul className="mt-6 space-y-4 text-sm font-semibold text-[#c0c0bc]">
+          <h2 className="eyebrow text-(--gold-light)">Explore</h2>
+          <ul className="mt-6 space-y-3 text-sm text-(--cream)/70">
             {footerLinks.map((link) => (
               <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="transition hover:text-[#ff6872]"
-                >
-                  {link.label}
-                </Link>
+                <Link href={link.href} className="transition hover:text-white">{link.label}</Link>
               </li>
             ))}
           </ul>
         </nav>
 
         <div>
-          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#ff5963]">
-            Visit the store
-          </h2>
-          <address className="mt-6 not-italic leading-7 text-[#c0c0bc]">
+          <h2 className="eyebrow text-(--gold-light)">Visit</h2>
+          <address className="mt-6 not-italic text-sm leading-7 text-(--cream)/70">
             <p>{siteConfig.contact.addressLine1}</p>
-            <p>
-              {siteConfig.contact.city}, {siteConfig.contact.state}{" "}
-              {siteConfig.contact.postalCode}
-            </p>
-            <a
-              href={siteConfig.contact.phoneHref}
-              className="mt-4 block text-xl font-bold text-white hover:text-[#ff6872]"
-            >
-              {siteConfig.contact.phone}
-            </a>
-            <a
-              href={siteConfig.contact.emailHref}
-              className="mt-2 block break-all text-sm font-semibold text-white hover:text-[#ff6872]"
-            >
-              {siteConfig.contact.email}
-            </a>
-            <a
-              href={siteConfig.contact.mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-white hover:text-[#ff6872]"
-            >
-              Open directions <span aria-hidden="true">→</span>
-            </a>
+            <p>{siteConfig.contact.city}, {siteConfig.contact.state} {siteConfig.contact.postalCode}</p>
+            <a href={siteConfig.contact.phoneHref} className="mt-4 block font-bold text-white hover:text-(--gold-light)">{siteConfig.contact.phone}</a>
+            <a href={siteConfig.contact.emailHref} className="block break-all hover:text-white">{siteConfig.contact.email}</a>
           </address>
         </div>
 
-        <nav aria-label="Social media">
-          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#ff5963]">
-            Follow
-          </h2>
-          <ul className="mt-6 space-y-4 text-sm font-semibold text-[#c0c0bc]">
-            {siteConfig.socialLinks.map(({ label, href }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-[#ff6872]"
-                >
-                  {label} <span aria-hidden="true">↗</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
         <div>
-          <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#ff5963]">
-            Store hours
-          </h2>
-          <dl className="mt-6 space-y-2 text-sm text-[#c0c0bc]">
-            {siteConfig.hours.map(({ day, hours }) => (
-              <div key={day} className="flex justify-between gap-4">
-                <dt>{day.slice(0, 3)}</dt>
-                <dd className="font-semibold text-white">{hours}</dd>
-              </div>
-            ))}
+          <h2 className="eyebrow text-(--gold-light)">Hours</h2>
+          <dl className="mt-6 space-y-2 text-sm text-(--cream)/70">
+            <div className="flex justify-between gap-4"><dt>Mon–Sat</dt><dd className="text-white">10am–5pm</dd></div>
+            <div className="flex justify-between gap-4"><dt>Sunday</dt><dd className="text-white">Closed</dd></div>
           </dl>
-          <p className="mt-4 text-xs leading-5 text-[#8f8f8c]">
-            Hours may change seasonally. Call to confirm before a long trip.
-          </p>
+          <a
+            href={siteConfig.socialLinks[0].href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block text-xs font-bold uppercase tracking-[0.14em] text-(--gold-light) hover:text-white"
+          >
+            Follow on Facebook ↗
+          </a>
         </div>
       </div>
 
-      <div className="mt-14 flex flex-col gap-4 border-t border-[#303034] pt-7 text-xs text-[#8f8f8c] sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
-          reserved.
-        </p>
-        <p>
-          Website designed by{" "}
-          <Link
-            href="https://www.veriqdigital.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#c4c4c0] hover:text-[#ff6872]"
-          >
-            Veriq
-          </Link>
-        </p>
+      <div className="flex flex-col gap-3 pt-7 text-xs text-(--cream)/45 sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+        <p>Website designed by <Link href="https://www.veriqdigital.com/" target="_blank" rel="noopener noreferrer" className="text-(--cream)/70 hover:text-white">Veriq</Link></p>
       </div>
     </div>
   </footer>

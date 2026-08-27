@@ -1,6 +1,6 @@
-# Big Wicks Fireworks
+# Amazing Grace Antiques
 
-Marketing website for Big Wicks Fireworks LLC in La Porte, Indiana.
+Traditional concept website for Amazing Grace Antiques in Lufkin, Texas.
 
 ## Development
 
@@ -8,9 +8,9 @@ Marketing website for Big Wicks Fireworks LLC in La Porte, Indiana.
 npm run dev
 ```
 
-The first rebrand pass includes the homepage, store information, category-ready frontend structure, responsive navigation, and SEO metadata. Product catalog, inventory, checkout, and live promotion data are intentionally out of scope.
+This concept establishes the responsive homepage, editable business and gallery data, events/announcement placeholders, antique-selling inquiry path, and SEO foundation. Ecommerce, inventory, a CMS, and photo-upload storage are intentionally out of scope for this phase.
 
-Set `NEXT_PUBLIC_SITE_URL` to the production origin at deployment so social sharing image URLs resolve to the live domain.
+Set `NEXT_PUBLIC_SITE_URL` to the production origin at deployment so canonical and social metadata resolve correctly.
 
 ## Contact form email delivery
 
@@ -18,6 +18,6 @@ The `/contact` form sends messages server-side through the Resend Email API. Cop
 
 - `RESEND_API_KEY`: server-only Resend API key.
 - `CONTACT_FROM_EMAIL`: sender using a domain verified in Resend, optionally with a display name.
-- `CONTACT_TO_EMAIL`: the Big Wicks inbox that should receive website inquiries.
+- `CONTACT_TO_EMAIL`: store inbox that should receive website inquiries (normally `sherri@amazinggraceantiques.com`).
 
-The recipient is intentionally not hard-coded. If any delivery variable is missing, the form returns a visible error and directs the visitor to call the store; it never reports success while discarding the submission.
+The recipient remains environment-configurable. If delivery is not configured, the form gives the visitor a visible error and the shop phone number.

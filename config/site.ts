@@ -1,48 +1,43 @@
 export const businessHours = [
-  { day: "Monday", hours: "8 AM–10 PM", schema: "Mo 08:00-22:00" },
-  { day: "Tuesday", hours: "8 AM–10 PM", schema: "Tu 08:00-22:00" },
-  { day: "Wednesday", hours: "7 AM–10 PM", schema: "We 07:00-22:00" },
-  { day: "Thursday", hours: "7 AM–11 PM", schema: "Th 07:00-23:00" },
-  { day: "Friday", hours: "7 AM–11 PM", schema: "Fr 07:00-23:00" },
-  { day: "Saturday", hours: "7 AM–11 PM", schema: "Sa 07:00-23:00" },
-  { day: "Sunday", hours: "8 AM–5 PM", schema: "Su 08:00-17:00" },
+  { day: "Monday", hours: "10am–5pm", schema: "Mo 10:00-17:00" },
+  { day: "Tuesday", hours: "10am–5pm", schema: "Tu 10:00-17:00" },
+  { day: "Wednesday", hours: "10am–5pm", schema: "We 10:00-17:00" },
+  { day: "Thursday", hours: "10am–5pm", schema: "Th 10:00-17:00" },
+  { day: "Friday", hours: "10am–5pm", schema: "Fr 10:00-17:00" },
+  { day: "Saturday", hours: "10am–5pm", schema: "Sa 10:00-17:00" },
+  { day: "Sunday", hours: "Closed", schema: null },
 ] as const;
 
 export const siteConfig = {
-  name: "Big Wicks Fireworks LLC",
-  shortName: "Big Wicks Fireworks",
+  name: "Amazing Grace Antiques",
+  shortName: "Amazing Grace Antiques",
   description:
-    "Shop a huge selection of fireworks with friendly, knowledgeable help at Big Wicks Fireworks in La Porte, Indiana—just minutes from New Buffalo, Michigan.",
+    "Explore antiques, collectibles, jewelry, home décor, vintage clothing, artisan pieces, and one-of-a-kind finds in downtown Lufkin, Texas.",
   locale: "en_US",
+  siteUrl:
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.amazinggraceantiques.com",
   announcement: {
-    message: "Open 7 days · 3 miles south of downtown New Buffalo",
+    message: "Open Monday–Saturday, 10am–5pm · Downtown Lufkin",
     actionLabel: "Plan your visit",
     href: "/#visit",
   },
   contact: {
-    phone: "(219) 380-5149",
-    phoneHref: "tel:+12193805149",
-    email: "bigwicksfireworks@gmail.com",
-    emailHref: "mailto:bigwicksfireworks@gmail.com",
-    addressLine1: "10351 IN-39",
-    city: "La Porte",
-    state: "IN",
-    postalCode: "46350",
-    address: "10351 IN-39, La Porte, IN 46350",
-    proximity: "3 miles south of downtown New Buffalo, Michigan",
+    phone: "(936) 634-7223",
+    phoneHref: "tel:+19366347223",
+    email: "sherri@amazinggraceantiques.com",
+    emailHref: "mailto:sherri@amazinggraceantiques.com",
+    addressLine1: "205 E. Frank Ave., Suite A",
+    city: "Lufkin",
+    state: "TX",
+    postalCode: "75901",
+    address: "205 E. Frank Ave., Suite A, Lufkin, TX 75901",
     mapUrl:
-      "https://www.google.com/maps/dir/?api=1&destination=10351+IN-39%2C+La+Porte%2C+IN+46350",
-    mapEmbedUrl:
-      "https://www.google.com/maps?q=10351+IN-39%2C+La+Porte%2C+IN+46350&output=embed",
+      "https://www.google.com/maps/dir/?api=1&destination=205+E+Frank+Ave+Suite+A%2C+Lufkin%2C+TX+75901",
   },
   socialLinks: [
     {
       label: "Facebook",
-      href: "https://www.facebook.com/profile.php?id=100094070160648",
-    },
-    {
-      label: "Instagram",
-      href: "https://www.instagram.com/bigwicksfireworks/",
+      href: "https://www.facebook.com/p/Amazing-Grace-Antiques-100057132022610/",
     },
   ],
   hours: businessHours,
@@ -52,22 +47,22 @@ export type NavItem = { label: string; href: string };
 
 export const navigation: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Shop Fireworks", href: "/#shop" },
-  { label: "Deals", href: "/#deals" },
   { label: "About", href: "/#about" },
-  { label: "Visit Us", href: "/#visit" },
+  { label: "Visit", href: "/#visit" },
+  { label: "Events", href: "/#events" },
+  { label: "Sell Your Antiques", href: "/#sell" },
   { label: "Contact", href: "/contact" },
 ];
 
 export const footerLinks: NavItem[] = [
-  { label: "Shop by Category", href: "/#shop" },
-  { label: "Current Deals", href: "/#deals" },
-  { label: "Why Big Wicks", href: "/#why-big-wicks" },
-  { label: "Firework Demos", href: "/#demos" },
-  { label: "Frequently Asked Questions", href: "/#faq" },
+  { label: "Our Story", href: "/#about" },
+  { label: "Around the Shop", href: "/#shop" },
+  { label: "Happenings", href: "/#events" },
+  { label: "Sell an Antique", href: "/#sell" },
+  { label: "Visit the Store", href: "/#visit" },
 ];
 
 export const primaryCta = {
-  label: "Get Directions",
-  href: siteConfig.contact.mapUrl,
+  label: "Visit the Shop",
+  href: "/#visit",
 } as const;
