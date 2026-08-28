@@ -1,30 +1,34 @@
 export type StoreEvent = {
-  date: string;
+  id: string;
+  dateLabel: string;
   title: string;
   description: string;
-  note: string;
+  status: "confirmed" | "sample";
 };
 
 export const storeEvents: StoreEvent[] = [
   {
-    date: "DATE TBA",
-    title: "Holiday Open House",
+    id: "sample-holiday-event",
+    dateLabel: "DATE TBA",
+    title: "Seasonal Gathering",
     description:
       "A seasonal afternoon of festive displays, new arrivals, and a little extra holiday cheer around the shop.",
-    note: "Sample announcement",
+    status: "sample",
   },
   {
-    date: "DATE TBA",
-    title: "Santa at the Shop",
+    id: "sample-store-event",
+    dateLabel: "DATE TBA",
+    title: "Family Day at the Shop",
     description:
       "A family-friendly store visit with photo opportunities and plenty of vintage Christmas charm.",
-    note: "Sample announcement",
+    status: "sample",
   },
   {
-    date: "COMING SOON",
-    title: "Fresh Finds Weekend",
+    id: "sample-announcement",
+    dateLabel: "COMING SOON",
+    title: "Fresh Finds Announcement",
     description:
       "A first look at recently added furniture, collectibles, vintage pieces, and artisan goods.",
-    note: "Sample announcement",
+    status: "sample",
   },
 ];

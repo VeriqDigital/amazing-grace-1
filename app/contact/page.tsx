@@ -3,19 +3,29 @@ import Image from "next/image";
 import ContactForm from "@/components/contact/ContactForm";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
-import { siteConfig } from "@/config/site";
+import { siteConfig, socialImage } from "@/config/site";
 import signImage from "@/public/images/branding/store-sign-close.jpg";
 
 export const metadata: Metadata = {
-  title: "Contact & Antique Inquiries",
+  title: "Contact",
   description:
-    "Contact Amazing Grace Antiques in Lufkin, Texas, plan a store visit, or share details about an antique you may be interested in selling.",
+    "Contact Amazing Grace Antiques in Lufkin, Texas, ask a question, or plan a store visit.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact Amazing Grace Antiques",
     description:
-      "Ask about the shop, plan a visit, or tell Amazing Grace Antiques about a vintage piece.",
+      "Ask about the shop, an item, an event, or an upcoming visit to Amazing Grace Antiques.",
     url: "/contact",
+    siteName: siteConfig.shortName,
+    locale: siteConfig.locale,
+    type: "website",
+    images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Amazing Grace Antiques",
+    description: "Ask about the shop, an item, an event, or an upcoming visit.",
+    images: [socialImage.url],
   },
 };
 
@@ -31,7 +41,7 @@ export default function ContactPage() {
                 Let’s talk about <span className="italic">what you found.</span>
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-(--cream)/65">
-                Questions, visit details, and antique inquiries are all welcome. Send a note below or reach the shop directly.
+                Questions about the shop, its current inventory, events, and upcoming visits are welcome. Send a note below or reach the shop directly.
               </p>
             </div>
           </div>

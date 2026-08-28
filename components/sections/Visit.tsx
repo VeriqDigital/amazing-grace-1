@@ -22,7 +22,7 @@ const Visit = () => (
           <h2 className="font-heading text-5xl font-medium leading-[0.9] tracking-[-0.035em] text-(--olive) sm:text-6xl">
             Visit the store.
           </h2>
-          <address className="mt-8 not-italic text-[1.05rem] leading-8 text-(--muted)">
+          <address className="mt-8 not-italic text-[1.05rem] leading-8 text-(--muted) xl:text-lg">
             <p className="text-lg font-bold text-(--ink)">{siteConfig.contact.addressLine1}</p>
             <p>{siteConfig.contact.city}, {siteConfig.contact.state} {siteConfig.contact.postalCode}</p>
             <a href={siteConfig.contact.phoneHref} className="mt-5 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{siteConfig.contact.phone}</a>
@@ -32,8 +32,11 @@ const Visit = () => (
 
         <div className="mt-10">
           <div className="border-y border-(--border) py-6">
-            <div className="flex items-center justify-between gap-4 text-[1.05rem] leading-7"><span className="text-(--muted)">Monday–Saturday</span><strong>10am–5pm</strong></div>
-            <div className="mt-3 flex items-center justify-between gap-4 text-[1.05rem] leading-7"><span className="text-(--muted)">Sunday</span><strong>Closed</strong></div>
+            {siteConfig.hoursSummary.map(({ days, hours }, index) => (
+              <div key={days} className={`flex items-center justify-between gap-4 text-[1.05rem] leading-7 xl:text-lg ${index > 0 ? "mt-3" : ""}`}>
+                <span className="text-(--muted)">{days}</span><strong>{hours}</strong>
+              </div>
+            ))}
           </div>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Button href={siteConfig.contact.mapUrl} newTab>Get Directions</Button>

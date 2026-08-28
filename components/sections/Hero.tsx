@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { primaryCta } from "@/config/site";
 import heroImage from "@/public/images/hero/shop-interior-furniture.jpg";
 
 const Hero = () => (
@@ -12,12 +13,12 @@ const Hero = () => (
           Timeless finds.
           <span className="mt-3 block font-normal italic">Stories worth keeping.</span>
         </h1>
-        <p className="mt-8 max-w-xl text-lg leading-8 text-(--muted)">
+        <p className="mt-8 max-w-xl text-lg leading-8 text-(--muted) xl:text-xl xl:leading-9">
           Wander through a wide-ranging collection of antiques, vintage pieces, jewelry, home décor, artisan goods, and the treasures you never knew you were looking for.
         </p>
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-          <Button href="/#visit">Visit the Shop</Button>
-          <Button href="/#sell" variant="outline">Sell an Antique</Button>
+          <Button href={primaryCta.href}>{primaryCta.label}</Button>
+          <Button href="/sell" variant="outline">Sell an Antique</Button>
         </div>
       </div>
 
@@ -29,7 +30,7 @@ const Hero = () => (
             fill
             className="object-cover object-center"
             sizes="(max-width: 1024px) 90vw, 50vw"
-            priority
+            preload
           />
         </div>
       </div>

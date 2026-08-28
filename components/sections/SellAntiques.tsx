@@ -13,10 +13,10 @@ const SellAntiques = () => (
           <h2 className="text-balance mt-5 max-w-3xl font-heading text-5xl font-medium leading-[0.9] tracking-[-0.035em] text-(--olive) sm:text-6xl lg:text-7xl">
             Have something with <span className="italic">a story?</span>
           </h2>
-          <p className="mt-7 max-w-2xl text-[1.05rem] leading-8 text-(--muted)">
+          <p className="mt-7 max-w-2xl text-[1.05rem] leading-8 text-(--muted) xl:text-lg">
             If you have an antique or vintage item you are interested in selling, start by telling us a little about it. We can review the details and let you know the best next step.
           </p>
-          <Button href="/contact#message" className="mt-8">Tell Us About Your Antique</Button>
+          <Button href="/sell#antique-inquiry" className="mt-8">Tell Us About Your Antique</Button>
         </div>
 
         <aside className="relative border border-(--border-dark) bg-(--ivory) p-7 sm:p-9" aria-label="What to include with an antique inquiry">
@@ -28,7 +28,7 @@ const SellAntiques = () => (
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-base leading-7 text-(--muted)">Photo uploads are planned for a future phase. For now, the contact form provides a clean starting point.</p>
+          <p className="mt-7 text-base leading-7 text-(--muted)">Use the item form to share the details now. Photo upload will be enabled in the final setup.</p>
         </aside>
       </div>
     </div>

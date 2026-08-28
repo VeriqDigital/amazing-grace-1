@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { submitContactForm } from "@/app/contact/actions";
 import {
   contactSubjects,
@@ -18,21 +19,29 @@ const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.status === "success") formRef.current?.reset();
-  }, [state.status, state.submittedAt]);
+    if (state.status === "success") {
+      formRef.current?.reset();
+      return;
+    }
+
+    if (state.status === "error" && state.fieldErrors) {
+      formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+    }
+  }, [state]);
 
   return (
     <form
       id="message"
       ref={formRef}
       action={formAction}
+      aria-busy={pending}
       className="scroll-mt-32 border border-(--border-dark) bg-(--cream) p-6 sm:p-9 lg:p-12"
     >
       <div className="border-b border-(--border) pb-7">
         <p className="eyebrow text-(--burgundy)">Write to us</p>
         <h2 className="mt-3 font-heading text-4xl font-medium text-(--olive) sm:text-5xl">Send a message</h2>
         <p className="mt-4 max-w-2xl leading-7 text-(--muted)">
-          Ask about the shop, plan a visit, or tell us about an antique you may be interested in selling.
+          Ask about the shop, an item in the store, an event, or an upcoming visit. To offer an item for sale, use our dedicated item submission form.
         </p>
       </div>
 
@@ -95,6 +104,9 @@ const ContactForm = () => {
       <button type="submit" disabled={pending} className="mt-7 inline-flex min-h-12 items-center justify-center border border-(--olive) bg-(--olive) px-6 py-3 text-[0.75rem] font-bold uppercase tracking-[0.1em] text-(--cream) transition-colors hover:border-(--olive-light) hover:bg-(--olive-light) disabled:cursor-wait disabled:opacity-60">
         <span>{pending ? "Sending…" : "Send Message"}</span>
       </button>
+      <p className="mt-5 text-sm leading-6 text-(--muted)">
+        Want to sell an antique? <Link href="/sell#antique-inquiry" className="font-bold text-(--burgundy) underline decoration-(--border-dark) underline-offset-4 hover:text-(--brown)">Submit item details here.</Link>
+      </p>
     </form>
   );
 };
