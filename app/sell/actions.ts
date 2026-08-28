@@ -6,19 +6,20 @@ import {
   type AntiqueField,
   type AntiqueFormState,
 } from "./form-state";
-import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 import { sendWebsiteEmail } from "@/lib/email";
-
-const getString = (formData: FormData, name: string) => {
-  const value = formData.get(name);
-  return typeof value === "string" ? value.trim() : "";
-};
+import {
+  getFormString,
+  hasLineBreaks,
+  isValidEmail,
+  isValidPhone,
+} from "@/lib/forms/validation";
 
 export async function submitAntiqueForm(
   _previousState: AntiqueFormState,
   formData: FormData,
 ): Promise<AntiqueFormState> {
-  if (getString(formData, "company")) {
+  if (getFormString(formData, "company")) {
     return {
       status: "success",
       message: "Thanks for reaching out. Amazing Grace will review your item and follow up with you.",
@@ -26,25 +27,25 @@ export async function submitAntiqueForm(
     };
   }
 
-  const name = getString(formData, "name");
-  const email = getString(formData, "email");
-  const phone = getString(formData, "phone");
-  const category = getString(formData, "category");
-  const approximateAge = getString(formData, "approximateAge");
-  const itemDescription = getString(formData, "itemDescription");
-  const additionalDetails = getString(formData, "additionalDetails");
-  const preferredContact = getString(formData, "preferredContact") || "email";
+  const name = getFormString(formData, "name");
+  const email = getFormString(formData, "email");
+  const phone = getFormString(formData, "phone");
+  const category = getFormString(formData, "category");
+  const approximateAge = getFormString(formData, "approximateAge");
+  const itemDescription = getFormString(formData, "itemDescription");
+  const additionalDetails = getFormString(formData, "additionalDetails");
+  const preferredContact = getFormString(formData, "preferredContact") || "email";
   const fieldErrors: Partial<Record<AntiqueField, string>> = {};
 
-  if (name.length < 2 || name.length > 100 || /[\r\n]/.test(name)) {
+  if (name.length < 2 || name.length > 100 || hasLineBreaks(name)) {
     fieldErrors.name = "Enter your name using 2 to 100 characters.";
   }
 
-  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!isValidEmail(email)) {
     fieldErrors.email = "Enter a valid email address.";
   }
 
-  if (phone && (phone.length > 30 || !/^[+()\-.\s\d]{7,30}$/.test(phone))) {
+  if (phone && !isValidPhone(phone)) {
     fieldErrors.phone = "Enter a valid phone number or leave this field blank.";
   }
 
@@ -53,7 +54,7 @@ export async function submitAntiqueForm(
     fieldErrors.category = "Choose a valid item category.";
   }
 
-  if (approximateAge.length > 100 || /[\r\n]/.test(approximateAge)) {
+  if (approximateAge.length > 100 || hasLineBreaks(approximateAge)) {
     fieldErrors.approximateAge = "Keep the approximate age under 100 characters.";
   }
 
@@ -113,7 +114,7 @@ export async function submitAntiqueForm(
     return {
       status: "error",
       message: delivery.reason === "configuration"
-        ? `We’re unable to accept online item submissions right now. Please call the shop at ${siteConfig.contact.phone}.`
+        ? `We’re unable to accept online item submissions right now. Please call the shop at ${businessConfig.contact.phone}.`
         : "We could not send your item details right now. Please try again or call the shop.",
     };
   }

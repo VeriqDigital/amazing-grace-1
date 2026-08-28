@@ -5,19 +5,20 @@ import {
   type ContactField,
   type ContactFormState,
 } from "./contact-form-state";
-import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 import { sendWebsiteEmail } from "@/lib/email";
-
-const getString = (formData: FormData, name: string) => {
-  const value = formData.get(name);
-  return typeof value === "string" ? value.trim() : "";
-};
+import {
+  getFormString,
+  hasLineBreaks,
+  isValidEmail,
+  isValidPhone,
+} from "@/lib/forms/validation";
 
 export async function submitContactForm(
   _previousState: ContactFormState,
   formData: FormData,
 ): Promise<ContactFormState> {
-  const honeypot = getString(formData, "company");
+  const honeypot = getFormString(formData, "company");
   if (honeypot) {
     return {
       status: "success",
@@ -26,22 +27,22 @@ export async function submitContactForm(
     };
   }
 
-  const name = getString(formData, "name");
-  const email = getString(formData, "email");
-  const phone = getString(formData, "phone");
-  const subject = getString(formData, "subject");
-  const message = getString(formData, "message");
+  const name = getFormString(formData, "name");
+  const email = getFormString(formData, "email");
+  const phone = getFormString(formData, "phone");
+  const subject = getFormString(formData, "subject");
+  const message = getFormString(formData, "message");
   const fieldErrors: Partial<Record<ContactField, string>> = {};
 
-  if (name.length < 2 || name.length > 100 || /[\r\n]/.test(name)) {
+  if (name.length < 2 || name.length > 100 || hasLineBreaks(name)) {
     fieldErrors.name = "Enter your name using 2 to 100 characters.";
   }
 
-  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!isValidEmail(email)) {
     fieldErrors.email = "Enter a valid email address.";
   }
 
-  if (phone && (phone.length > 30 || !/^[+()\-.\s\d]{7,30}$/.test(phone))) {
+  if (phone && !isValidPhone(phone)) {
     fieldErrors.phone = "Enter a valid phone number or leave this field blank.";
   }
 
@@ -87,7 +88,7 @@ export async function submitContactForm(
     return {
       status: "error",
       message: delivery.reason === "configuration"
-        ? `We’re unable to accept online messages right now. Please call the shop at ${siteConfig.contact.phone}.`
+        ? `We’re unable to accept online messages right now. Please call the shop at ${businessConfig.contact.phone}.`
         : "We could not send your message right now. Please try again or call the shop.",
     };
   }

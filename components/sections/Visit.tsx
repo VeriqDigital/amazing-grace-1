@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import Section from "@/components/ui/Section";
-import { siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
 import storefrontImage from "@/public/images/branding/storefront-sign.jpg";
 
 const Visit = () => (
@@ -23,24 +23,24 @@ const Visit = () => (
             Visit the store.
           </h2>
           <address className="mt-8 not-italic text-[1.05rem] leading-8 text-(--muted) xl:text-lg">
-            <p className="text-lg font-bold text-(--ink)">{siteConfig.contact.addressLine1}</p>
-            <p>{siteConfig.contact.city}, {siteConfig.contact.state} {siteConfig.contact.postalCode}</p>
-            <a href={siteConfig.contact.phoneHref} className="mt-5 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{siteConfig.contact.phone}</a>
-            <a href={siteConfig.contact.emailHref} className="mt-2 block break-all font-bold text-(--ink) hover:text-(--burgundy)">{siteConfig.contact.email}</a>
+            <p className="text-lg font-bold text-(--ink)">{businessConfig.contact.addressLine1}</p>
+            <p>{businessConfig.contact.city}, {businessConfig.contact.state} {businessConfig.contact.postalCode}</p>
+            <a href={businessConfig.contact.phoneHref} className="mt-5 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{businessConfig.contact.phone}</a>
+            <a href={businessConfig.contact.emailHref} className="mt-2 block break-all font-bold text-(--ink) hover:text-(--burgundy)">{businessConfig.contact.email}</a>
           </address>
         </div>
 
         <div className="mt-10">
           <div className="border-y border-(--border) py-6">
-            {siteConfig.hoursSummary.map(({ days, hours }, index) => (
+            {businessConfig.hoursSummary.map(({ days, hours }, index) => (
               <div key={days} className={`flex items-center justify-between gap-4 text-[1.05rem] leading-7 xl:text-lg ${index > 0 ? "mt-3" : ""}`}>
                 <span className="text-(--muted)">{days}</span><strong>{hours}</strong>
               </div>
             ))}
           </div>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Button href={siteConfig.contact.mapUrl} newTab>Get Directions</Button>
-            <Button href={siteConfig.socialLinks[0].href} newTab variant="outline">Facebook</Button>
+            <Button href={businessConfig.contact.mapUrl} newTab>Get Directions</Button>
+            <Button href={businessConfig.socialLinks[0].href} newTab variant="outline">Facebook</Button>
           </div>
         </div>
       </div>

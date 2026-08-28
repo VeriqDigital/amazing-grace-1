@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import ContactForm from "@/components/contact/ContactForm";
+import ContactForm from "@/components/forms/ContactForm";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { businessConfig } from "@/config/business";
 import { siteConfig, socialImage } from "@/config/site";
 import signImage from "@/public/images/branding/store-sign-close.jpg";
 
@@ -62,21 +63,21 @@ export default function ContactPage() {
                 <p className="eyebrow text-(--burgundy)">Visit or call</p>
                 <h2 className="mt-3 font-heading text-4xl font-medium text-(--olive)">{siteConfig.name}</h2>
                 <address className="mt-6 not-italic leading-7 text-(--muted)">
-                  <p>{siteConfig.contact.addressLine1}</p>
-                  <p>{siteConfig.contact.city}, {siteConfig.contact.state} {siteConfig.contact.postalCode}</p>
-                  <a href={siteConfig.contact.phoneHref} className="mt-5 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{siteConfig.contact.phone}</a>
-                  <a href={siteConfig.contact.emailHref} className="mt-1 block break-all text-base hover:text-(--burgundy)">{siteConfig.contact.email}</a>
+                  <p>{businessConfig.contact.addressLine1}</p>
+                  <p>{businessConfig.contact.city}, {businessConfig.contact.state} {businessConfig.contact.postalCode}</p>
+                  <a href={businessConfig.contact.phoneHref} className="mt-5 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{businessConfig.contact.phone}</a>
+                  <a href={businessConfig.contact.emailHref} className="mt-1 block break-all text-base hover:text-(--burgundy)">{businessConfig.contact.email}</a>
                 </address>
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-                  <Button href={siteConfig.contact.mapUrl} newTab>Get Directions</Button>
-                  <Button href={siteConfig.contact.phoneHref} variant="outline">Call the Shop</Button>
+                  <Button href={businessConfig.contact.mapUrl} newTab>Get Directions</Button>
+                  <Button href={businessConfig.contact.phoneHref} variant="outline">Call the Shop</Button>
                 </div>
               </div>
 
               <div className="border border-(--border-dark) bg-(--cream) p-7 sm:p-9">
                 <p className="eyebrow text-(--burgundy)">Store hours</p>
                 <dl className="mt-6 space-y-3 text-base">
-                  {siteConfig.hours.map(({ day, hours }) => (
+                  {businessConfig.hours.map(({ day, hours }) => (
                     <div key={day} className="flex justify-between gap-5 border-b border-(--border) pb-3 last:border-0 last:pb-0">
                       <dt className="text-(--muted)">{day}</dt>
                       <dd className="font-bold text-(--ink)">{hours}</dd>
