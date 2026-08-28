@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Lato } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import ScrollToTop from "@/components/layout/ScrollToTop";
+import { businessConfig } from "@/config/business";
 import { siteConfig, socialImage } from "@/config/site";
 import "./globals.css";
 
@@ -59,18 +60,18 @@ const localBusinessJsonLd = {
   name: siteConfig.name,
   url: siteConfig.siteUrl,
   description: siteConfig.description,
-  telephone: siteConfig.contact.phone,
-  email: siteConfig.contact.email,
-  sameAs: siteConfig.socialLinks.map(({ href }) => href),
+  telephone: businessConfig.contact.phone,
+  email: businessConfig.contact.email,
+  sameAs: businessConfig.socialLinks.map(({ href }) => href),
   address: {
     "@type": "PostalAddress",
-    streetAddress: siteConfig.contact.addressLine1,
-    addressLocality: siteConfig.contact.city,
-    addressRegion: siteConfig.contact.state,
-    postalCode: siteConfig.contact.postalCode,
+    streetAddress: businessConfig.contact.addressLine1,
+    addressLocality: businessConfig.contact.city,
+    addressRegion: businessConfig.contact.state,
+    postalCode: businessConfig.contact.postalCode,
     addressCountry: "US",
   },
-  openingHours: siteConfig.hours.flatMap(({ schema }) => (schema ? [schema] : [])),
+  openingHours: businessConfig.hours.flatMap(({ schema }) => (schema ? [schema] : [])),
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

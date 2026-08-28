@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { navigation, siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
+import { navigation } from "@/config/navigation";
 
 const Wordmark = () => (
   <span className="wordmark" aria-hidden="true">
@@ -71,17 +72,17 @@ const Navbar = () => {
         <div className="mx-auto flex min-h-8 max-w-(--container-width) items-center justify-between gap-4 px-5 py-1.5 text-[0.7rem] font-bold uppercase leading-5 tracking-[0.1em] sm:px-8 lg:px-10">
           <p>
             <span className="sm:hidden">
-              {siteConfig.announcement.shortMessage}
+              {businessConfig.announcement.shortMessage}
             </span>
             <span className="hidden sm:inline">
-              {siteConfig.announcement.message}
+              {businessConfig.announcement.message}
             </span>
           </p>
           <Link
-            href={siteConfig.announcement.href}
+            href={businessConfig.announcement.href}
             className="hidden text-(--gold-light) transition hover:text-white sm:block"
           >
-            {siteConfig.announcement.actionLabel}
+            {businessConfig.announcement.actionLabel}
           </Link>
         </div>
       </div>
@@ -112,7 +113,7 @@ const Navbar = () => {
 
         <div className="flex items-center gap-2 xl:hidden">
           <a
-            href={siteConfig.contact.phoneHref}
+            href={businessConfig.contact.phoneHref}
             className="hidden border border-(--border-dark) px-4 py-2.5 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-(--olive) sm:block"
           >
             Call the shop
@@ -168,13 +169,13 @@ const Navbar = () => {
             ))}
             <div className="mt-8 grid gap-2 text-sm text-(--muted)">
               <a
-                href={siteConfig.contact.phoneHref}
+                href={businessConfig.contact.phoneHref}
                 className="font-bold text-(--ink)"
               >
-                {siteConfig.contact.phone}
+                {businessConfig.contact.phone}
               </a>
-              <a href={siteConfig.contact.emailHref}>
-                {siteConfig.contact.email}
+              <a href={businessConfig.contact.emailHref}>
+                {businessConfig.contact.email}
               </a>
             </div>
           </nav>

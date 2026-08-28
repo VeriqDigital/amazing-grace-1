@@ -5,7 +5,7 @@ import clocksImage from "@/public/images/shop/handcrafted-wood-clocks.jpg";
 import lanternsImage from "@/public/images/shop/vintage-lanterns.jpg";
 import artisanImage from "@/public/images/shop/artisan-woodwork.jpg";
 
-export const shopGallery = [
+export const galleryItems = [
   {
     label: "Furniture & Décor",
     image: furnitureImage,

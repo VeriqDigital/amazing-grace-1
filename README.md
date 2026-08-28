@@ -5,19 +5,39 @@ Client-ready traditional website demo for Amazing Grace Antiques in Lufkin, Texa
 ## Development
 
 ```bash
+npm install
 npm run dev
 ```
 
-The demo includes a responsive homepage, centralized business/gallery/event data, general contact and antique-submission forms, and local-business SEO. Ecommerce, live inventory, a CMS, and photo-upload storage are intentionally out of scope for this phase.
+Quality checks:
 
-Set `NEXT_PUBLIC_SITE_URL` to the production origin at deployment so canonical and social metadata resolve correctly.
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
 
-## Form email delivery
+## Project structure
 
-The `/contact` and `/sell` forms send messages server-side through the Resend Email API. Copy `.env.example` to `.env.local` and configure:
+- `app/`: App Router pages, metadata, redirects, and route-specific Server Actions/state.
+- `components/forms/`: explicit contact and antique forms plus small shared form primitives.
+- `components/layout/`, `components/sections/`, `components/ui/`: shared layout, homepage sections, and UI primitives.
+- `config/site.ts`: site identity, canonical URL, and social image metadata.
+- `config/business.ts`: contact details, hours, announcement, and social links.
+- `config/navigation.ts`: primary navigation, footer links, and shared CTA destinations.
+- `data/`: editorial content such as events and gallery items.
+- `lib/email.ts`: shared Resend delivery integration.
+- `lib/forms/validation.ts`: low-level form extraction and validation helpers.
 
+## Environment variables
+
+Copy `.env.example` to `.env.local` and configure:
+
+- `NEXT_PUBLIC_SITE_URL`: production origin used for canonical, sitemap, and social metadata.
 - `RESEND_API_KEY`: server-only Resend API key.
 - `CONTACT_FROM_EMAIL`: sender using a domain verified in Resend, optionally with a display name.
-- `CONTACT_TO_EMAIL`: store inbox that should receive website inquiries (normally `sherri@amazinggraceantiques.com`).
+- `CONTACT_TO_EMAIL`: store inbox that receives both website forms.
 
-The recipient remains environment-configurable. If delivery is not configured, the forms give the visitor a visible error and the shop phone number. Photo upload on the antique form is intentionally disabled for the demo and needs storage/delivery configuration in the final build.
+If delivery is not configured, the forms show a visitor-safe error and the shop phone number. The antique photo upload remains an intentional placeholder until storage and delivery are configured. Ecommerce, live inventory, and a CMS are out of scope for this phase.
+
+Before launch, review the `TODO(production)` notes in `config/business.ts` and replace or confirm all provisional client details and demo event content.

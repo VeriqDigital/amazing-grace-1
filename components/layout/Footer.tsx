@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { footerLinks, siteConfig } from "@/config/site";
+import { businessConfig } from "@/config/business";
+import { footerLinks } from "@/config/navigation";
+import { siteConfig } from "@/config/site";
 
 const Footer = () => (
   <footer className="border-t border-white/10 bg-(--olive-deep) text-(--cream)">
@@ -27,22 +29,22 @@ const Footer = () => (
         <div>
           <h2 className="eyebrow text-(--gold-light)">Visit</h2>
           <address className="mt-6 not-italic text-base leading-7 text-(--cream)/75 xl:text-[1.05rem] xl:leading-8">
-            <p>{siteConfig.contact.addressLine1}</p>
-            <p>{siteConfig.contact.city}, {siteConfig.contact.state} {siteConfig.contact.postalCode}</p>
-            <a href={siteConfig.contact.phoneHref} className="mt-4 block font-bold text-white hover:text-(--gold-light)">{siteConfig.contact.phone}</a>
-            <a href={siteConfig.contact.emailHref} className="block break-all hover:text-white">{siteConfig.contact.email}</a>
+            <p>{businessConfig.contact.addressLine1}</p>
+            <p>{businessConfig.contact.city}, {businessConfig.contact.state} {businessConfig.contact.postalCode}</p>
+            <a href={businessConfig.contact.phoneHref} className="mt-4 block font-bold text-white hover:text-(--gold-light)">{businessConfig.contact.phone}</a>
+            <a href={businessConfig.contact.emailHref} className="block break-all hover:text-white">{businessConfig.contact.email}</a>
           </address>
         </div>
 
         <div>
           <h2 className="eyebrow text-(--gold-light)">Hours</h2>
           <dl className="mt-6 space-y-2 text-base leading-7 text-(--cream)/75">
-            {siteConfig.hoursSummary.map(({ days, hours }) => (
+            {businessConfig.hoursSummary.map(({ days, hours }) => (
               <div key={days} className="flex justify-between gap-4"><dt>{days}</dt><dd className="text-white">{hours}</dd></div>
             ))}
           </dl>
           <a
-            href={siteConfig.socialLinks[0].href}
+            href={businessConfig.socialLinks[0].href}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-block text-[0.72rem] font-bold uppercase tracking-[0.1em] text-(--gold-light) hover:text-white"

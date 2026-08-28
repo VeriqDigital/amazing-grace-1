@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import AntiqueForm from "@/components/contact/AntiqueForm";
+import AntiqueForm from "@/components/forms/AntiqueForm";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import { businessConfig } from "@/config/business";
 import { siteConfig, socialImage } from "@/config/site";
 import chairImage from "@/public/images/shop/antique-rocking-chair.jpg";
 
@@ -66,7 +67,7 @@ export default function SellPage() {
 
               <div className="border border-(--border-dark) bg-(--cream) p-7 sm:p-9">
                 <p className="eyebrow text-(--burgundy)">Prefer to talk?</p>
-                <a href={siteConfig.contact.phoneHref} className="mt-4 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{siteConfig.contact.phone}</a>
+                <a href={businessConfig.contact.phoneHref} className="mt-4 block font-heading text-3xl font-medium text-(--burgundy) hover:text-(--brown)">{businessConfig.contact.phone}</a>
                 <p className="mt-3 text-sm leading-6 text-(--muted)">You can also call the shop during regular store hours.</p>
                 <Button href="/contact" variant="outline" className="mt-6">General Contact</Button>
               </div>
