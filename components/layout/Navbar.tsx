@@ -39,7 +39,7 @@ const Navbar = () => {
       if (event.key !== "Tab") return;
 
       const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])',
+        "a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])",
       );
       if (!focusable?.length) return;
 
@@ -70,10 +70,17 @@ const Navbar = () => {
       <div className="border-b border-(--border) bg-(--olive) text-(--cream)">
         <div className="mx-auto flex min-h-8 max-w-(--container-width) items-center justify-between gap-4 px-5 py-1.5 text-[0.7rem] font-bold uppercase leading-5 tracking-[0.1em] sm:px-8 lg:px-10">
           <p>
-            <span className="sm:hidden">{siteConfig.announcement.shortMessage}</span>
-            <span className="hidden sm:inline">{siteConfig.announcement.message}</span>
+            <span className="sm:hidden">
+              {siteConfig.announcement.shortMessage}
+            </span>
+            <span className="hidden sm:inline">
+              {siteConfig.announcement.message}
+            </span>
           </p>
-          <Link href={siteConfig.announcement.href} className="hidden text-(--gold-light) transition hover:text-white sm:block">
+          <Link
+            href={siteConfig.announcement.href}
+            className="hidden text-(--gold-light) transition hover:text-white sm:block"
+          >
             {siteConfig.announcement.actionLabel}
           </Link>
         </div>
@@ -83,7 +90,11 @@ const Navbar = () => {
         className="mx-auto flex h-[82px] max-w-(--container-width) items-center justify-between px-5 sm:h-[92px] sm:px-8 lg:px-10 xl:h-[98px]"
         aria-label="Main navigation"
       >
-        <Link href="/" aria-label="Amazing Grace Antiques home" className="shrink-0 text-(--olive)">
+        <Link
+          href="/"
+          aria-label="Amazing Grace Antiques home"
+          className="shrink-0 text-(--olive)"
+        >
           <Wordmark />
         </Link>
 
@@ -110,15 +121,23 @@ const Navbar = () => {
             ref={menuButtonRef}
             type="button"
             className="flex size-11 items-center justify-center border border-(--border-dark) text-(--olive) transition hover:bg-(--olive) hover:text-(--cream)"
-            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation-menu"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
             <span className="grid gap-1.5" aria-hidden="true">
-              <span className={`block h-px w-5 bg-current transition-transform ${isMenuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
-              <span className={`block h-px w-5 bg-current transition-opacity ${isMenuOpen ? "opacity-0" : ""}`} />
-              <span className={`block h-px w-5 bg-current transition-transform ${isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+              <span
+                className={`block h-px w-5 bg-current transition-transform ${isMenuOpen ? "translate-y-[7px] rotate-45" : ""}`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-opacity ${isMenuOpen ? "opacity-0" : ""}`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-transform ${isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
+              />
             </span>
           </button>
         </div>
@@ -131,19 +150,12 @@ const Navbar = () => {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
-          className="fixed inset-x-0 bottom-0 top-[114px] overflow-y-auto border-t border-(--border) bg-(--cream) p-5 sm:top-[124px] xl:hidden"
+          className="absolute inset-x-0 top-full h-[calc(100dvh-114px)] overflow-y-auto border-t border-(--border) bg-(--cream) p-5 sm:h-[calc(100dvh-124px)] xl:hidden"
         >
-          <nav className="mx-auto grid max-w-(--container-width)" aria-label="Mobile navigation">
-            <button
-              type="button"
-              onClick={() => {
-                setIsMenuOpen(false);
-                requestAnimationFrame(() => menuButtonRef.current?.focus());
-              }}
-              className="mb-2 min-h-11 justify-self-end px-2 text-xs font-bold uppercase tracking-[0.1em] text-(--burgundy)"
-            >
-              Close menu
-            </button>
+          <nav
+            className="mx-auto grid max-w-(--container-width)"
+            aria-label="Mobile navigation"
+          >
             {navigation.map((item) => (
               <Link
                 key={item.label}
@@ -155,8 +167,15 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="mt-8 grid gap-2 text-sm text-(--muted)">
-              <a href={siteConfig.contact.phoneHref} className="font-bold text-(--ink)">{siteConfig.contact.phone}</a>
-              <a href={siteConfig.contact.emailHref}>{siteConfig.contact.email}</a>
+              <a
+                href={siteConfig.contact.phoneHref}
+                className="font-bold text-(--ink)"
+              >
+                {siteConfig.contact.phone}
+              </a>
+              <a href={siteConfig.contact.emailHref}>
+                {siteConfig.contact.email}
+              </a>
             </div>
           </nav>
         </div>
