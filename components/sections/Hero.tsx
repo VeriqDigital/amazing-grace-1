@@ -18,7 +18,7 @@ const Hero = () => (
         </p>
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
           <Button href={primaryCta.href}>{primaryCta.label}</Button>
-          <Button href="/#sell" variant="outline">Sell an Antique</Button>
+          <Button href="/sell" variant="outline">Sell an Antique</Button>
         </div>
       </div>
 
