@@ -28,7 +28,7 @@ export const siteConfig = {
   description:
     "Explore antiques, collectibles, jewelry, home décor, vintage clothing, artisan pieces, and one-of-a-kind finds in downtown Lufkin, Texas.",
   locale: "en_US",
-  siteUrl: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.amazinggraceantiques.com").replace(/\/+$/, ""),
+  siteUrl: (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://www.amazinggraceantiques.com").replace(/\/+$/, ""),
   announcement: {
     message: "Antiques & vintage finds · Downtown Lufkin",
     shortMessage: "Downtown Lufkin",
