@@ -98,7 +98,7 @@ export async function submitAntiqueForm(
     "Additional details:",
     additionalDetails || "Not provided",
     "",
-    "Photos: Upload is not enabled in this demo.",
+    "Photos: Not included with this submission.",
     `Submitted: ${new Date().toISOString()}`,
   ].join("\n");
 
@@ -113,7 +113,7 @@ export async function submitAntiqueForm(
     return {
       status: "error",
       message: delivery.reason === "configuration"
-        ? `Online item submissions are temporarily unavailable. Please call the shop at ${siteConfig.contact.phone}.`
+        ? `We’re unable to accept online item submissions right now. Please call the shop at ${siteConfig.contact.phone}.`
         : "We could not send your item details right now. Please try again or call the shop.",
     };
   }

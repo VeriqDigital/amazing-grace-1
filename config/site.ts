@@ -30,7 +30,7 @@ export const siteConfig = {
   locale: "en_US",
   siteUrl: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.amazinggraceantiques.com").replace(/\/+$/, ""),
   announcement: {
-    message: "Open Monday–Saturday, 10am–5pm · Downtown Lufkin",
+    message: "Antiques & vintage finds · Downtown Lufkin",
     shortMessage: "Downtown Lufkin",
     actionLabel: "Plan your visit",
     href: "/#visit",

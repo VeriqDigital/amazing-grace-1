@@ -87,7 +87,7 @@ export async function submitContactForm(
     return {
       status: "error",
       message: delivery.reason === "configuration"
-        ? `Online messaging is temporarily unavailable. Please call the shop at ${siteConfig.contact.phone}.`
+        ? `We’re unable to accept online messages right now. Please call the shop at ${siteConfig.contact.phone}.`
         : "We could not send your message right now. Please try again or call the shop.",
     };
   }

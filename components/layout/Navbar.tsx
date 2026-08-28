@@ -68,7 +68,7 @@ const Navbar = () => {
   return (
     <header className="sticky inset-x-0 top-0 z-50 border-b border-(--border) bg-(--cream)/96 backdrop-blur-md">
       <div className="border-b border-(--border) bg-(--olive) text-(--cream)">
-        <div className="mx-auto flex min-h-8 max-w-(--container-width) items-center justify-between gap-4 px-5 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.1em] sm:px-8 lg:px-10">
+        <div className="mx-auto flex min-h-8 max-w-(--container-width) items-center justify-between gap-4 px-5 py-1.5 text-[0.7rem] font-bold uppercase leading-5 tracking-[0.1em] sm:px-8 lg:px-10">
           <p>
             <span className="sm:hidden">{siteConfig.announcement.shortMessage}</span>
             <span className="hidden sm:inline">{siteConfig.announcement.message}</span>
@@ -80,19 +80,19 @@ const Navbar = () => {
       </div>
 
       <nav
-        className="mx-auto flex h-[82px] max-w-(--container-width) items-center justify-between px-5 sm:h-[92px] sm:px-8 lg:px-10"
+        className="mx-auto flex h-[82px] max-w-(--container-width) items-center justify-between px-5 sm:h-[92px] sm:px-8 lg:px-10 xl:h-[98px]"
         aria-label="Main navigation"
       >
         <Link href="/" aria-label="Amazing Grace Antiques home" className="shrink-0 text-(--olive)">
           <Wordmark />
         </Link>
 
-        <div className="hidden items-center gap-5 xl:flex 2xl:gap-8">
+        <div className="hidden items-center gap-6 xl:flex 2xl:gap-9">
           {navigation.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className="nav-link py-3 text-[0.72rem] font-bold uppercase tracking-[0.09em] text-(--ink) transition-colors hover:text-(--burgundy)"
+              className="nav-link py-3 text-[0.76rem] font-bold uppercase tracking-[0.08em] text-(--ink) transition-colors hover:text-(--burgundy)"
             >
               {item.label}
             </Link>

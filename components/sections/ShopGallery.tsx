@@ -10,7 +10,7 @@ const ShopGallery = () => (
           From around the shop.
         </h2>
       </div>
-      <p className="max-w-md text-base leading-7 text-(--muted)">
+      <p className="max-w-md text-base leading-7 text-(--muted) xl:text-lg xl:leading-8">
         Inventory changes frequently. Think of these as a small peek at the kinds of character-filled pieces waiting to be discovered.
       </p>
     </div>

@@ -9,7 +9,7 @@ import {
 } from "@/app/sell/form-state";
 
 const fieldClasses =
-  "mt-2 w-full border border-(--border-dark) bg-(--cream) px-4 py-3.5 text-base text-(--ink) outline-none transition placeholder:text-(--muted)/65 focus:border-(--burgundy) focus:ring-2 focus:ring-(--burgundy)/10 aria-[invalid=true]:border-(--burgundy) disabled:cursor-not-allowed disabled:bg-(--ivory) disabled:text-(--muted) disabled:opacity-75";
+  "mt-2 w-full border border-(--border-dark) bg-(--cream) px-4 py-3.5 text-base text-(--ink) outline-none transition placeholder:text-(--muted)/65 focus:border-(--burgundy) focus:ring-2 focus:ring-(--burgundy)/10 aria-[invalid=true]:border-(--burgundy)";
 
 const AntiqueForm = () => {
   const [state, formAction, pending] = useActionState(
@@ -109,10 +109,9 @@ const AntiqueForm = () => {
         {state.fieldErrors?.additionalDetails && <p id="antique-details-error" className="mt-2 text-sm text-(--burgundy)">{state.fieldErrors.additionalDetails}</p>}
       </div>
 
-      <div className="mt-6 border border-(--border) bg-(--ivory) p-5">
-        <label htmlFor="antique-photos" className="text-xs font-bold uppercase tracking-[0.12em] text-(--ink)">Item photos</label>
-        <input id="antique-photos" type="file" accept="image/*" multiple disabled className={fieldClasses} aria-describedby="antique-photos-note" />
-        <p id="antique-photos-note" className="mt-3 text-sm leading-6 text-(--muted)">Photo upload is shown for review but is not connected in this demo. It will be configured in the final build.</p>
+      <div className="mt-6 border border-(--border) bg-(--ivory) p-5" role="note" aria-labelledby="antique-photos-label">
+        <p id="antique-photos-label" className="text-xs font-bold uppercase tracking-[0.12em] text-(--ink)">Item photos</p>
+        <p className="mt-3 text-sm leading-6 text-(--muted)">Photo upload will be enabled in the final setup.</p>
       </div>
 
       <div className="absolute left-[-10000px] h-px w-px overflow-hidden" aria-hidden="true">

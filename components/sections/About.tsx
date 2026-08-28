@@ -32,7 +32,7 @@ const About = () => (
           <p className="font-heading text-2xl leading-8 text-(--olive)">
             Every aisle holds a different era, a different craft, and something unexpected.
           </p>
-          <p className="text-[1.05rem] leading-8 text-(--muted)">
+          <p className="text-[1.05rem] leading-8 text-(--muted) xl:text-lg">
             Amazing Grace Antiques brings together a broad mix of pieces for the home, the collection, or simply the joy of discovery. Inventory changes often, so no two visits are quite the same.
           </p>
         </div>

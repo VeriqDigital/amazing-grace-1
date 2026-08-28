@@ -13,7 +13,7 @@ const Hero = () => (
           Timeless finds.
           <span className="mt-3 block font-normal italic">Stories worth keeping.</span>
         </h1>
-        <p className="mt-8 max-w-xl text-lg leading-8 text-(--muted)">
+        <p className="mt-8 max-w-xl text-lg leading-8 text-(--muted) xl:text-xl xl:leading-9">
           Wander through a wide-ranging collection of antiques, vintage pieces, jewelry, home décor, artisan goods, and the treasures you never knew you were looking for.
         </p>
         <div className="mt-9 flex flex-col gap-3 sm:flex-row">
