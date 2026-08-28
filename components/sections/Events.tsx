@@ -10,20 +10,22 @@ const Events = () => (
           Happenings at Amazing Grace.
         </h2>
         <p className="mt-7 max-w-lg text-lg leading-8 text-(--cream)/75">
-          Seasonal gatherings, special shop activities, and timely updates will have a home here. The examples shown are concept placeholders—not confirmed events.
+          Seasonal gatherings, special shop activities, and timely updates will have a home here.
         </p>
       </div>
 
       <div className="border-t border-white/25">
         {storeEvents.map((event) => (
-          <article key={event.title} className="grid gap-4 border-b border-white/20 py-7 sm:grid-cols-[8.5rem_1fr] sm:items-start sm:gap-7">
+          <article key={event.id} className="grid gap-4 border-b border-white/20 py-7 sm:grid-cols-[8.5rem_1fr] sm:items-start sm:gap-7">
             <div>
-              <p className="text-sm font-bold text-(--gold-light)">{event.date}</p>
+              <p className="text-sm font-bold text-(--gold-light)">{event.dateLabel}</p>
             </div>
             <div>
               <h3 className="font-heading text-3xl font-medium text-white sm:text-4xl">{event.title}</h3>
               <p className="mt-3 max-w-2xl text-[1.05rem] leading-7 text-(--cream)/80">{event.description}</p>
-              <p className="mt-3 text-sm text-(--gold-light)">{event.note} — details to be confirmed.</p>
+              {event.status === "sample" && (
+                <p className="mt-3 text-sm text-(--gold-light)">Sample content for this website demo — not a confirmed event.</p>
+              )}
             </div>
           </article>
         ))}

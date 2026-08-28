@@ -37,8 +37,9 @@ const Footer = () => (
         <div>
           <h2 className="eyebrow text-(--gold-light)">Hours</h2>
           <dl className="mt-6 space-y-2 text-base leading-7 text-(--cream)/75">
-            <div className="flex justify-between gap-4"><dt>Mon–Sat</dt><dd className="text-white">10am–5pm</dd></div>
-            <div className="flex justify-between gap-4"><dt>Sunday</dt><dd className="text-white">Closed</dd></div>
+            {siteConfig.hoursSummary.map(({ days, hours }) => (
+              <div key={days} className="flex justify-between gap-4"><dt>{days}</dt><dd className="text-white">{hours}</dd></div>
+            ))}
           </dl>
           <a
             href={siteConfig.socialLinks[0].href}

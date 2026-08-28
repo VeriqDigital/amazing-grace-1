@@ -33,7 +33,7 @@ const About = () => (
             Every aisle holds a different era, a different craft, and something unexpected.
           </p>
           <p className="text-[1.05rem] leading-8 text-(--muted)">
-            Amazing Grace Antiques brings together a full house of vendors and a broad mix of pieces for the home, the collection, or simply the joy of discovery. Inventory moves often, so no two visits are quite the same.
+            Amazing Grace Antiques brings together a broad mix of pieces for the home, the collection, or simply the joy of discovery. Inventory changes often, so no two visits are quite the same.
           </p>
         </div>
         <ul className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">

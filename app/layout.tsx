@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Lato } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import ScrollToTop from "@/components/layout/ScrollToTop";
-import { siteConfig } from "@/config/site";
+import { siteConfig, socialImage } from "@/config/site";
 import "./globals.css";
 
 const headingFont = Cormorant_Garamond({
@@ -22,7 +22,7 @@ const bodyFont = Lato({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "Amazing Grace Antiques | Lufkin, Texas",
+    default: "Amazing Grace Antiques | Antiques & Vintage Finds in Lufkin, TX",
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
@@ -37,17 +37,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Amazing Grace Antiques | Timeless Finds in Lufkin",
+    title: "Amazing Grace Antiques | Antiques & Vintage Finds in Lufkin, TX",
     description: siteConfig.description,
     siteName: siteConfig.shortName,
     locale: siteConfig.locale,
     type: "website",
     url: "/",
+    images: [socialImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amazing Grace Antiques | Lufkin, Texas",
+    title: "Amazing Grace Antiques | Antiques & Vintage Finds in Lufkin, TX",
     description: siteConfig.description,
+    images: [socialImage.url],
   },
 };
 
@@ -75,13 +77,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
       <body className="flex min-h-dvh flex-col">
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
         <ScrollToTop />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

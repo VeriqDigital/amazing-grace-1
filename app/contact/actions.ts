@@ -6,6 +6,7 @@ import {
   type ContactFormState,
 } from "./contact-form-state";
 import { siteConfig } from "@/config/site";
+import { sendWebsiteEmail } from "@/lib/email";
 
 const getString = (formData: FormData, name: string) => {
   const value = formData.get(name);
@@ -61,18 +62,6 @@ export async function submitContactForm(
     };
   }
 
-  const apiKey = process.env.RESEND_API_KEY?.trim();
-  const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim();
-  const toEmail = process.env.CONTACT_TO_EMAIL?.trim();
-
-  if (!apiKey || !fromEmail || !toEmail) {
-    console.error("Contact form email delivery is missing required environment configuration.");
-    return {
-      status: "error",
-      message: `Online messaging is temporarily unavailable. Please call the shop at ${siteConfig.contact.phone}.`,
-    };
-  }
-
   const emailText = [
     "New Amazing Grace Antiques website inquiry",
     "",
@@ -87,36 +76,19 @@ export async function submitContactForm(
     `Submitted: ${new Date().toISOString()}`,
   ].join("\n");
 
-  try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        "Idempotency-Key": `amazing-grace-contact-${crypto.randomUUID()}`,
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: [toEmail],
-        reply_to: email,
-        subject: `[Amazing Grace Antiques] ${selectedSubject?.label} — ${name}`,
-        text: emailText,
-      }),
-      cache: "no-store",
-    });
+  const delivery = await sendWebsiteEmail({
+    formName: "contact",
+    replyTo: email,
+    subject: `[Amazing Grace Antiques] ${selectedSubject?.label} — ${name}`,
+    text: emailText,
+  });
 
-    if (!response.ok) {
-      console.error(`Contact form email delivery failed with status ${response.status}.`);
-      return {
-        status: "error",
-        message: "We could not send your message right now. Please try again or call the shop.",
-      };
-    }
-  } catch (error) {
-    console.error("Contact form email delivery failed.", error);
+  if (!delivery.ok) {
     return {
       status: "error",
-      message: "We could not send your message right now. Please try again or call the shop.",
+      message: delivery.reason === "configuration"
+        ? `Online messaging is temporarily unavailable. Please call the shop at ${siteConfig.contact.phone}.`
+        : "We could not send your message right now. Please try again or call the shop.",
     };
   }
 

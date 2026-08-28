@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigation, siteConfig } from "@/config/site";
 
 const Wordmark = () => (
@@ -13,19 +13,54 @@ const Wordmark = () => (
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 1280px)");
+    const closeAtDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsMenuOpen(false);
+    };
+
+    desktopQuery.addEventListener("change", closeAtDesktop);
+    return () => desktopQuery.removeEventListener("change", closeAtDesktop);
+  }, []);
 
   useEffect(() => {
     if (!isMenuOpen) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMenuOpen(false);
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        requestAnimationFrame(() => menuButtonRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])',
+      );
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
+    menuRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMenuOpen]);
@@ -34,7 +69,10 @@ const Navbar = () => {
     <header className="sticky inset-x-0 top-0 z-50 border-b border-(--border) bg-(--cream)/96 backdrop-blur-md">
       <div className="border-b border-(--border) bg-(--olive) text-(--cream)">
         <div className="mx-auto flex min-h-8 max-w-(--container-width) items-center justify-between gap-4 px-5 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.1em] sm:px-8 lg:px-10">
-          <p>{siteConfig.announcement.message}</p>
+          <p>
+            <span className="sm:hidden">{siteConfig.announcement.shortMessage}</span>
+            <span className="hidden sm:inline">{siteConfig.announcement.message}</span>
+          </p>
           <Link href={siteConfig.announcement.href} className="hidden text-(--gold-light) transition hover:text-white sm:block">
             {siteConfig.announcement.actionLabel}
           </Link>
@@ -69,6 +107,7 @@ const Navbar = () => {
             Call the shop
           </a>
           <button
+            ref={menuButtonRef}
             type="button"
             className="flex size-11 items-center justify-center border border-(--border-dark) text-(--olive) transition hover:bg-(--olive) hover:text-(--cream)"
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -86,8 +125,25 @@ const Navbar = () => {
       </nav>
 
       {isMenuOpen && (
-        <div id="mobile-navigation-menu" className="fixed inset-x-0 top-[114px] h-[calc(100dvh-114px)] border-t border-(--border) bg-(--cream) p-5 sm:top-[124px] sm:h-[calc(100dvh-124px)] xl:hidden">
-          <div className="mx-auto grid max-w-(--container-width)">
+        <div
+          ref={menuRef}
+          id="mobile-navigation-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+          className="fixed inset-x-0 bottom-0 top-[114px] overflow-y-auto border-t border-(--border) bg-(--cream) p-5 sm:top-[124px] xl:hidden"
+        >
+          <nav className="mx-auto grid max-w-(--container-width)" aria-label="Mobile navigation">
+            <button
+              type="button"
+              onClick={() => {
+                setIsMenuOpen(false);
+                requestAnimationFrame(() => menuButtonRef.current?.focus());
+              }}
+              className="mb-2 min-h-11 justify-self-end px-2 text-xs font-bold uppercase tracking-[0.1em] text-(--burgundy)"
+            >
+              Close menu
+            </button>
             {navigation.map((item) => (
               <Link
                 key={item.label}
@@ -102,7 +158,7 @@ const Navbar = () => {
               <a href={siteConfig.contact.phoneHref} className="font-bold text-(--ink)">{siteConfig.contact.phone}</a>
               <a href={siteConfig.contact.emailHref}>{siteConfig.contact.email}</a>
             </div>
-          </div>
+          </nav>
         </div>
       )}
     </header>

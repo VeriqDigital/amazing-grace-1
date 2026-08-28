@@ -32,8 +32,11 @@ const Visit = () => (
 
         <div className="mt-10">
           <div className="border-y border-(--border) py-6">
-            <div className="flex items-center justify-between gap-4 text-[1.05rem] leading-7"><span className="text-(--muted)">Monday–Saturday</span><strong>10am–5pm</strong></div>
-            <div className="mt-3 flex items-center justify-between gap-4 text-[1.05rem] leading-7"><span className="text-(--muted)">Sunday</span><strong>Closed</strong></div>
+            {siteConfig.hoursSummary.map(({ days, hours }, index) => (
+              <div key={days} className={`flex items-center justify-between gap-4 text-[1.05rem] leading-7 ${index > 0 ? "mt-3" : ""}`}>
+                <span className="text-(--muted)">{days}</span><strong>{hours}</strong>
+              </div>
+            ))}
           </div>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Button href={siteConfig.contact.mapUrl} newTab>Get Directions</Button>

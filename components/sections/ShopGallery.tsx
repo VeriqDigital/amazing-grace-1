@@ -18,7 +18,7 @@ const ShopGallery = () => (
     <div className="gallery-grid mt-12">
       {shopGallery.map((item) => (
         <figure key={item.label} className={item.className}>
-          <Image src={item.image} alt={item.alt} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 34vw" />
+          <Image src={item.image} alt={item.alt} fill className="gallery-image object-cover" sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(50vw - 2.5rem), 34vw" />
           <figcaption className="absolute bottom-0 left-0 bg-(--olive)/90 px-5 py-3 font-heading text-2xl font-medium text-white">{item.label}</figcaption>
         </figure>
       ))}
