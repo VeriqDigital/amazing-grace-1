@@ -30,10 +30,10 @@ const About = () => (
         </h2>
         <div className="mt-8 grid gap-6 sm:grid-cols-[1fr_1.15fr]">
           <p className="font-heading text-2xl leading-8 text-(--olive)">
-            Every aisle holds a different era, a different craft, and something unexpected.
+            Nearly 70 vendors under one roof, each with a story of their own.
           </p>
           <p className="text-[1.05rem] leading-8 text-(--muted) xl:text-lg">
-            Amazing Grace Antiques brings together a broad mix of pieces for the home, the collection, or simply the joy of discovery. Inventory changes often, so no two visits are quite the same.
+            Amazing Grace Antiques is a vendor mall where every booth has its own personality. Each vendor brings a different mix of treasures, with new finds along the way. No two visits are quite the same.
           </p>
         </div>
         <ul className="mt-8 grid gap-x-8 gap-y-5 sm:grid-cols-2">

@@ -11,7 +11,7 @@ const ShopGallery = () => (
         </h2>
       </div>
       <p className="max-w-md text-base leading-7 text-(--muted) xl:text-lg xl:leading-8">
-        Inventory changes frequently. Think of these as a small peek at the kinds of character-filled pieces waiting to be discovered.
+        A small peek across the many vendor booths, each full of character. Selections change as vendors bring in new finds to discover.
       </p>
     </div>
 
