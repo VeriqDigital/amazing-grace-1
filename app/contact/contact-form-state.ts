@@ -1,5 +1,5 @@
 export const contactSubjects = [
-  { value: "item", label: "Item or Inventory Question" },
+  { value: "item", label: "Item or Booth Question" },
   { value: "event", label: "Event or Announcement" },
   { value: "visit", label: "Visiting the Store" },
   { value: "general", label: "General Question" },

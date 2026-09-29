@@ -12,7 +12,7 @@ export const siteConfig = {
   name: "Amazing Grace Antiques",
   shortName: "Amazing Grace Antiques",
   description:
-    "Explore antiques, collectibles, jewelry, home décor, vintage clothing, artisan pieces, and one-of-a-kind finds in downtown Lufkin, Texas.",
+    "Discover antiques, vintage finds, and décor from nearly 70 independent vendors at Amazing Grace Antiques, a welcoming antique mall in downtown Lufkin, Texas.",
   locale: "en_US",
   siteUrl: (configuredSiteUrl || defaultSiteUrl).replace(/\/+$/, ""),
 } as const;

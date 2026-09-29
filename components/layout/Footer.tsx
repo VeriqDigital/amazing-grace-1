@@ -11,7 +11,7 @@ const Footer = () => (
           <p className="font-heading text-4xl leading-none sm:text-5xl">Amazing Grace</p>
           <p className="mt-2 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-(--gold-light)">Antiques</p>
           <p className="mt-7 max-w-sm text-base leading-7 text-(--cream)/70 xl:text-[1.05rem] xl:leading-8">
-            A welcoming downtown Lufkin shop filled with antiques, collectibles, vintage pieces, and unexpected finds.
+            A welcoming downtown Lufkin antique mall where nearly 70 independent vendors bring their own style and unexpected finds.
           </p>
         </div>
 

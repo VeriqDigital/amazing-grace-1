@@ -10,10 +10,10 @@ import chairImage from "@/public/images/shop/antique-rocking-chair.jpg";
 export const metadata: Metadata = {
   title: "Sell an Antique",
   description:
-    "Share details about an antique or vintage item you may be interested in selling to Amazing Grace Antiques in Lufkin, Texas.",
+    "Interested in selling an antique or vintage piece? Share the details with the team at Amazing Grace Antiques, a vendor mall in Lufkin, Texas.",
   alternates: { canonical: "/sell" },
   openGraph: {
-    title: "Sell an Antique to Amazing Grace Antiques",
+    title: "Antique Selling Inquiries | Amazing Grace Antiques",
     description:
       "Send Amazing Grace Antiques the details of an antique or vintage piece for review.",
     url: "/sell",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sell an Antique to Amazing Grace Antiques",
+    title: "Antique Selling Inquiries | Amazing Grace Antiques",
     description: "Send Amazing Grace Antiques the details of an antique or vintage piece for review.",
     images: [socialImage.url],
   },

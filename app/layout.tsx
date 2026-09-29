@@ -23,7 +23,7 @@ const bodyFont = Lato({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "Amazing Grace Antiques | Antiques & Vintage Finds in Lufkin, TX",
+    default: "Amazing Grace Antiques | Antique Mall in Lufkin, TX",
     template: `%s | ${siteConfig.shortName}`,
   },
   description: siteConfig.description,
@@ -31,14 +31,14 @@ export const metadata: Metadata = {
   category: "shopping",
   keywords: [
     "antiques Lufkin Texas",
-    "vintage shop Lufkin",
+    "Lufkin antique mall",
     "collectibles Lufkin",
     "Amazing Grace Antiques",
   ],
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Amazing Grace Antiques | Antiques & Vintage Finds in Lufkin, TX",
+    title: "Amazing Grace Antiques | Antique Mall in Lufkin, TX",
     description: siteConfig.description,
     siteName: siteConfig.shortName,
     locale: siteConfig.locale,
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Amazing Grace Antiques | Antiques & Vintage Finds in Lufkin, TX",
+    title: "Amazing Grace Antiques | Antique Mall in Lufkin, TX",
     description: siteConfig.description,
     images: [socialImage.url],
   },
