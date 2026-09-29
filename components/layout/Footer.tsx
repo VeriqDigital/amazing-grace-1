@@ -56,7 +56,7 @@ const Footer = () => (
 
       <div className="flex flex-col gap-3 pt-7 text-sm leading-6 text-(--cream)/60 sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
-        <p>Website designed by <Link href="https://www.veriqdigital.com/" target="_blank" rel="noopener noreferrer" className="text-(--cream)/70 hover:text-white">Veriq</Link></p>
+        <p>Website designed by <Link href="https://www.veriqdigital.com/" target="_blank" rel="noopener noreferrer" className="text-(--cream)/70 underline underline-offset-4 hover:text-white">Veriq</Link></p>
       </div>
     </div>
   </footer>

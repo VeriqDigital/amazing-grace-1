@@ -1,101 +1,23 @@
 "use server";
 
-import {
-  contactSubjects,
-  type ContactField,
-  type ContactFormState,
-} from "./contact-form-state";
+import type { ContactFormState } from "./contact-form-state";
 import { businessConfig } from "@/config/business";
 import { sendWebsiteEmail } from "@/lib/email";
-import {
-  getFormString,
-  hasLineBreaks,
-  isValidEmail,
-  isValidPhone,
-} from "@/lib/forms/validation";
+import { getFormString } from "@/lib/forms/validation";
+import { parseContact } from "@/lib/forms/parse";
+import { checkRateLimit } from "@/lib/forms/rate-limit";
 
-export async function submitContactForm(
-  _previousState: ContactFormState,
-  formData: FormData,
-): Promise<ContactFormState> {
-  const honeypot = getFormString(formData, "company");
-  if (honeypot) {
-    return {
-      status: "success",
-      message: "Thank you. Your note has been received.",
-      submittedAt: Date.now(),
-    };
-  }
-
-  const name = getFormString(formData, "name");
-  const email = getFormString(formData, "email");
-  const phone = getFormString(formData, "phone");
-  const subject = getFormString(formData, "subject");
-  const message = getFormString(formData, "message");
-  const fieldErrors: Partial<Record<ContactField, string>> = {};
-
-  if (name.length < 2 || name.length > 100 || hasLineBreaks(name)) {
-    fieldErrors.name = "Enter your name using 2 to 100 characters.";
-  }
-
-  if (!isValidEmail(email)) {
-    fieldErrors.email = "Enter a valid email address.";
-  }
-
-  if (phone && !isValidPhone(phone)) {
-    fieldErrors.phone = "Enter a valid phone number or leave this field blank.";
-  }
-
-  const selectedSubject = contactSubjects.find((option) => option.value === subject);
-  if (!selectedSubject) {
-    fieldErrors.subject = "Choose an inquiry type.";
-  }
-
-  if (message.length < 10 || message.length > 3000) {
-    fieldErrors.message = "Enter a message using 10 to 3,000 characters.";
-  }
-
-  if (Object.keys(fieldErrors).length > 0) {
-    return {
-      status: "error",
-      message: "Please correct the highlighted fields and try again.",
-      fieldErrors,
-    };
-  }
-
-  const emailText = [
-    "New Amazing Grace Antiques website inquiry",
-    "",
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Phone: ${phone || "Not provided"}`,
-    `Inquiry type: ${selectedSubject?.label}`,
-    "",
-    "Message:",
-    message,
-    "",
-    `Submitted: ${new Date().toISOString()}`,
-  ].join("\n");
-
+export async function submitContactForm(_previousState: ContactFormState, formData: FormData): Promise<ContactFormState> {
+  if (getFormString(formData, "company")) return { status: "success", message: "Thank you. Your note has been received.", submittedAt: Date.now() };
+  const { values, errors, subject } = parseContact(formData);
+  if (Object.keys(errors).length) return { status: "error", message: "Please correct the highlighted fields and try again.", fieldErrors: errors, values };
+  const rate = await checkRateLimit("contact", values.email);
+  if (rate !== "allowed") return { status: "error", values, message: rate === "limited" ? "You’ve sent several messages recently. Please wait an hour before trying again, or call the shop." : `We’re unable to accept online messages right now. Please call ${businessConfig.contact.phone}.` };
   const delivery = await sendWebsiteEmail({
-    formName: "contact",
-    replyTo: email,
-    subject: `[Amazing Grace Antiques] ${selectedSubject?.label} — ${name}`,
-    text: emailText,
+    formName: "contact", replyTo: values.email,
+    subject: `[Amazing Grace Antiques] ${subject!.label} — ${values.name}`,
+    text: ["New Amazing Grace Antiques website inquiry", "", `Name: ${values.name}`, `Email: ${values.email}`, `Phone: ${values.phone || "Not provided"}`, `Inquiry type: ${subject!.label}`, "", values.message, "", `Submitted: ${new Date().toISOString()}`].join("\n"),
   });
-
-  if (!delivery.ok) {
-    return {
-      status: "error",
-      message: delivery.reason === "configuration"
-        ? `We’re unable to accept online messages right now. Please call the shop at ${businessConfig.contact.phone}.`
-        : "We could not send your message right now. Please try again or call the shop.",
-    };
-  }
-
-  return {
-    status: "success",
-    message: "Thank you. Your message has been sent to Amazing Grace Antiques.",
-    submittedAt: Date.now(),
-  };
+  if (!delivery.ok) return { status: "error", values, message: `We could not send your message right now. Please try again or call ${businessConfig.contact.phone}.` };
+  return { status: "success", message: "Thank you. Your message has been sent to Amazing Grace Antiques.", submittedAt: Date.now() };
 }

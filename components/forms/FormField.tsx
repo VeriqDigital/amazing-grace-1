@@ -36,7 +36,7 @@ const FormField = ({
     <div className={className}>
       <label
         htmlFor={id}
-        className="text-xs font-bold uppercase tracking-[0.12em] text-(--ink)"
+        className="text-sm font-bold uppercase tracking-[0.12em] text-(--ink)"
       >
         {label}{" "}
         {required && (
@@ -53,12 +53,12 @@ const FormField = ({
         "aria-describedby": describedBy,
       })}
       {helpText && (
-        <p id={helpId} className="mt-2 text-sm leading-6 text-(--muted)">
+        <p id={helpId} className="mt-2 text-base leading-7 text-(--muted)">
           {helpText}
         </p>
       )}
       {error && (
-        <p id={errorId} className="mt-2 text-sm text-(--burgundy)">
+        <p id={errorId} className="mt-2 text-base text-(--burgundy)">
           {error}
         </p>
       )}

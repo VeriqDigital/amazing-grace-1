@@ -28,7 +28,7 @@ const SellAntiques = () => (
               </li>
             ))}
           </ul>
-          <p className="mt-7 text-base leading-7 text-(--muted)">Use the item form to share the details now. Photo upload will be enabled in the final setup.</p>
+          <p className="mt-7 text-base leading-7 text-(--muted)">Share the details and up to five photos using the item form. Photos are optional, but help the team get to know your piece.</p>
         </aside>
       </div>
     </div>

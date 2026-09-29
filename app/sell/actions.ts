@@ -1,127 +1,47 @@
 "use server";
 
-import {
-  antiqueCategories,
-  preferredContactOptions,
-  type AntiqueField,
-  type AntiqueFormState,
-} from "./form-state";
+import type { AntiqueFormState } from "./form-state";
 import { businessConfig } from "@/config/business";
-import { sendWebsiteEmail } from "@/lib/email";
-import {
-  getFormString,
-  hasLineBreaks,
-  isValidEmail,
-  isValidPhone,
-} from "@/lib/forms/validation";
+import { getFormString } from "@/lib/forms/validation";
+import { parseAntique } from "@/lib/forms/parse";
+import { validatePhotoFiles } from "@/lib/forms/photo-limits";
+import { preparePhotos } from "@/lib/forms/photos";
+import { checkRateLimit } from "@/lib/forms/rate-limit";
+import { storeSubmission } from "@/lib/submissions/repository";
+import { deliverSubmissionNotifications } from "@/lib/submissions/notifications";
 
-export async function submitAntiqueForm(
-  _previousState: AntiqueFormState,
-  formData: FormData,
-): Promise<AntiqueFormState> {
-  if (getFormString(formData, "company")) {
-    return {
-      status: "success",
-      message: "Thanks for reaching out. Amazing Grace will review your item and follow up with you.",
-      submittedAt: Date.now(),
-    };
+export async function submitAntiqueForm(_previousState: AntiqueFormState, formData: FormData): Promise<AntiqueFormState> {
+  if (getFormString(formData, "company")) return { status: "success", message: "Thank you. Your item details have been received.", submittedAt: Date.now() };
+  const { values, errors, preferredContact, askingPriceCents } = parseAntique(formData);
+  const photoValues = formData.getAll("photos");
+  const files = photoValues.filter((value): value is File => value instanceof File && value.size > 0);
+  if (photoValues.some((value) => typeof value === "string")) errors.photos = "Choose photos using the photo upload field.";
+  else {
+    const problem = validatePhotoFiles(files);
+    if (problem) errors.photos = problem;
   }
-
-  const name = getFormString(formData, "name");
-  const email = getFormString(formData, "email");
-  const phone = getFormString(formData, "phone");
-  const category = getFormString(formData, "category");
-  const approximateAge = getFormString(formData, "approximateAge");
-  const itemDescription = getFormString(formData, "itemDescription");
-  const additionalDetails = getFormString(formData, "additionalDetails");
-  const preferredContact = getFormString(formData, "preferredContact") || "email";
-  const fieldErrors: Partial<Record<AntiqueField, string>> = {};
-
-  if (name.length < 2 || name.length > 100 || hasLineBreaks(name)) {
-    fieldErrors.name = "Enter your name using 2 to 100 characters.";
+  if (Object.keys(errors).length) return { status: "error", message: "Please correct the highlighted fields and try again.", fieldErrors: errors, values };
+  const unavailable = `We’re unable to accept online item submissions right now. Please call ${businessConfig.contact.phone}.`;
+  if (!process.env.RESEND_API_KEY || !process.env.CONTACT_FROM_EMAIL || !process.env.CONTACT_TO_EMAIL) return { status: "error", values, message: unavailable };
+  const rate = await checkRateLimit("antique", values.email);
+  if (rate !== "allowed") return { status: "error", values, message: rate === "limited" ? "You’ve sent several inquiries recently. Please wait an hour before trying again, or call the shop." : unavailable };
+  let photos: Buffer[];
+  try { photos = await preparePhotos(files); }
+  catch { return { status: "error", values, message: "One of the photos could not be read. Please choose another photo and try again.", fieldErrors: { photos: "Use still JPG, PNG, or WebP photos, up to 40 megapixels and 3 MB total after resizing." } }; }
+  let id: string;
+  try {
+    id = await storeSubmission({
+      name: values.name, email: values.email, phone: values.phone, category: values.category,
+      description: values.itemDescription, approximate_age: values.approximateAge,
+      asking_price_cents: askingPriceCents, additional_details: values.additionalDetails,
+      preferred_contact: preferredContact!.value,
+    }, photos);
+  } catch {
+    console.error("Item submission could not be saved.");
+    return { status: "error", values, message: `We could not finish saving your item. Please try again or call ${businessConfig.contact.phone}.` };
   }
-
-  if (!isValidEmail(email)) {
-    fieldErrors.email = "Enter a valid email address.";
-  }
-
-  if (phone && !isValidPhone(phone)) {
-    fieldErrors.phone = "Enter a valid phone number or leave this field blank.";
-  }
-
-  const selectedCategory = antiqueCategories.find((option) => option.value === category);
-  if (category && !selectedCategory) {
-    fieldErrors.category = "Choose a valid item category.";
-  }
-
-  if (approximateAge.length > 100 || hasLineBreaks(approximateAge)) {
-    fieldErrors.approximateAge = "Keep the approximate age under 100 characters.";
-  }
-
-  if (itemDescription.length < 20 || itemDescription.length > 3000) {
-    fieldErrors.itemDescription = "Describe the item using 20 to 3,000 characters.";
-  }
-
-  if (additionalDetails.length > 3000) {
-    fieldErrors.additionalDetails = "Keep additional details under 3,000 characters.";
-  }
-
-  const selectedContact = preferredContactOptions.find(
-    (option) => option.value === preferredContact,
-  );
-  if (!selectedContact) {
-    fieldErrors.preferredContact = "Choose a valid contact method.";
-  } else if (preferredContact !== "email" && !phone) {
-    fieldErrors.phone = "Add a phone number for calls or text messages.";
-  }
-
-  if (Object.keys(fieldErrors).length > 0) {
-    return {
-      status: "error",
-      message: "Please correct the highlighted fields and try again.",
-      fieldErrors,
-    };
-  }
-
-  const emailText = [
-    "New antique submission from the Amazing Grace Antiques website",
-    "",
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Phone: ${phone || "Not provided"}`,
-    `Preferred contact: ${selectedContact?.label}`,
-    `Item category: ${selectedCategory?.label || "Not provided"}`,
-    `Approximate age: ${approximateAge || "Not provided"}`,
-    "",
-    "Item description:",
-    itemDescription,
-    "",
-    "Additional details:",
-    additionalDetails || "Not provided",
-    "",
-    "Photos: Not included with this submission.",
-    `Submitted: ${new Date().toISOString()}`,
-  ].join("\n");
-
-  const delivery = await sendWebsiteEmail({
-    formName: "antique",
-    replyTo: email,
-    subject: `[Amazing Grace Antiques] Item submission — ${selectedCategory?.label || "Uncategorized"} — ${name}`,
-    text: emailText,
-  });
-
-  if (!delivery.ok) {
-    return {
-      status: "error",
-      message: delivery.reason === "configuration"
-        ? `We’re unable to accept online item submissions right now. Please call the shop at ${businessConfig.contact.phone}.`
-        : "We could not send your item details right now. Please try again or call the shop.",
-    };
-  }
-
-  return {
-    status: "success",
-    message: "Thanks for reaching out. Amazing Grace will review your item and follow up with you.",
-    submittedAt: Date.now(),
-  };
+  // Durable receipt is independent of email availability. The scheduler retries the saved notification.
+  try { await deliverSubmissionNotifications(id); }
+  catch { console.error("Item saved; email notification awaits retry."); }
+  return { status: "success", message: "Thank you. Your item details and any photos have been received. The Amazing Grace team will review your inquiry.", submittedAt: Date.now() };
 }

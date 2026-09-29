@@ -58,7 +58,7 @@ const Navbar = () => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
-    menuRef.current?.querySelector<HTMLElement>("a[href]")?.focus();
+    menuRef.current?.querySelector<HTMLElement>("button")?.focus();
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -121,7 +121,7 @@ const Navbar = () => {
           <button
             ref={menuButtonRef}
             type="button"
-            className="flex size-11 items-center justify-center border border-(--border-dark) text-(--olive) transition hover:bg-(--olive) hover:text-(--cream)"
+            className="flex min-h-11 items-center justify-center gap-3 border border-(--border-dark) px-3 text-base text-(--olive) transition hover:bg-(--olive) hover:text-(--cream)"
             aria-label={
               isMenuOpen ? "Close navigation menu" : "Open navigation menu"
             }
@@ -129,6 +129,7 @@ const Navbar = () => {
             aria-controls="mobile-navigation-menu"
             onClick={() => setIsMenuOpen((open) => !open)}
           >
+            <span>Menu</span>
             <span className="grid gap-1.5" aria-hidden="true">
               <span
                 className={`block h-px w-5 bg-current transition-transform ${isMenuOpen ? "translate-y-[7px] rotate-45" : ""}`}
@@ -153,6 +154,7 @@ const Navbar = () => {
           aria-label="Navigation menu"
           className="absolute inset-x-0 top-full h-[calc(100dvh-114px)] overflow-y-auto border-t border-(--border) bg-(--cream) p-5 sm:h-[calc(100dvh-124px)] xl:hidden"
         >
+          <button type="button" className="mb-4 min-h-11 border border-(--border-dark) px-4 text-base text-(--olive)" onClick={() => { setIsMenuOpen(false); menuButtonRef.current?.focus(); }}>Close menu</button>
           <nav
             className="mx-auto grid max-w-(--container-width)"
             aria-label="Mobile navigation"

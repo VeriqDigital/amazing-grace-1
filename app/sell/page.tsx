@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import StoreImage from "@/components/ui/StoreImage";
 import AntiqueForm from "@/components/forms/AntiqueForm";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { businessConfig } from "@/config/business";
 import { siteConfig, socialImage } from "@/config/site";
 import chairImage from "@/public/images/shop/antique-rocking-chair.jpg";
+
+export const runtime = "nodejs";
+export const maxDuration = 120;
 
 export const metadata: Metadata = {
   title: "Sell an Antique",
@@ -54,7 +57,7 @@ export default function SellPage() {
 
             <aside className="space-y-6" aria-label="Antique submission information">
               <figure className="relative aspect-[4/5] overflow-hidden border border-(--border-dark) bg-[#d7ccb9]">
-                <Image src={chairImage} alt="Antique wooden rocking chair displayed inside Amazing Grace Antiques" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 38vw" />
+                <StoreImage slot="sellImage" src={chairImage} alt="Antique wooden rocking chair displayed inside Amazing Grace Antiques" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 38vw" />
               </figure>
 
               <div className="border border-(--border-dark) bg-(--cream) p-7 sm:p-9">
