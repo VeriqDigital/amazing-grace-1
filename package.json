@@ -2,25 +2,63 @@
   "name": "amazing-grace-antiques",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.12"
+  },
+  "overrides": {
+    "@module-federation/dts-plugin": {
+      "adm-zip": "^0.6.1",
+      "undici": "^7.30.0"
+    },
+    "@vercel/frameworks": {
+      "js-yaml": "^3.15.2",
+      "smol-toml": "^1.9.0"
+    },
+    "typeid-js": {
+      "uuid": "^11.1.1"
+    }
+  },
+  "workspaces": [
+    "studio"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit && tsc --noEmit -p studio/tsconfig.json",
+    "test": "node --conditions=react-server --import tsx --test tests/*.test.ts",
+    "test:browser": "playwright test",
+    "studio:dev": "npm run dev --workspace studio",
+    "studio:build": "npm run build --workspace studio",
+    "studio:types": "npm run typegen --workspace studio",
+    "studio:deploy": "npm run deploy --workspace studio"
   },
   "dependencies": {
-    "next": "16.2.9",
+    "@portabletext/react": "^8.0.1",
+    "@sanity/client": "^8.8.0",
+    "@sanity/image-url": "^2.1.1",
+    "@supabase/supabase-js": "^2.117.2",
+    "groq": "^6.16.0",
+    "next": "^16.3.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@electric-sql/pglite": "^0.5.8",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.9",
+    "eslint-config-next": "^16.3.6",
+    "groq-js": "^2.0.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

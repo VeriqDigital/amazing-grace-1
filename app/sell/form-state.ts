@@ -23,11 +23,13 @@ export type AntiqueField =
   | "itemDescription"
   | "additionalDetails"
   | "preferredContact";
+export type ItemField = AntiqueField | "askingPrice" | "photos";
 
 export type AntiqueFormState = {
   status: "idle" | "success" | "error";
   message: string;
-  fieldErrors?: Partial<Record<AntiqueField, string>>;
+  fieldErrors?: Partial<Record<ItemField, string>>;
+  values?: Partial<Record<ItemField, string>>;
   submittedAt?: number;
 };
 

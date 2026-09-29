@@ -1,8 +1,12 @@
+import "server-only";
+
 type WebsiteEmail = {
   formName: "contact" | "antique";
   replyTo: string;
   subject: string;
   text: string;
+  idempotencyKey?: string;
+  attachments?: { filename: string; content: string }[];
 };
 
 export type EmailDeliveryResult =
@@ -14,6 +18,8 @@ export async function sendWebsiteEmail({
   replyTo,
   subject,
   text,
+  idempotencyKey,
+  attachments,
 }: WebsiteEmail): Promise<EmailDeliveryResult> {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const fromEmail = process.env.CONTACT_FROM_EMAIL?.trim();
@@ -30,7 +36,7 @@ export async function sendWebsiteEmail({
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "Idempotency-Key": `amazing-grace-${formName}-${crypto.randomUUID()}`,
+        "Idempotency-Key": idempotencyKey || `amazing-grace-${formName}-${crypto.randomUUID()}`,
       },
       body: JSON.stringify({
         from: fromEmail,
@@ -38,16 +44,18 @@ export async function sendWebsiteEmail({
         reply_to: replyTo,
         subject,
         text,
+        ...(attachments?.length ? { attachments } : {}),
       }),
       cache: "no-store",
+      signal: AbortSignal.timeout(10000),
     });
 
     if (!response.ok) {
       console.error(`Website email delivery failed with status ${response.status}.`);
       return { ok: false, reason: "delivery" };
     }
-  } catch (error) {
-    console.error("Website email delivery failed.", error);
+  } catch {
+    console.error("Website email delivery failed.");
     return { ok: false, reason: "delivery" };
   }
 

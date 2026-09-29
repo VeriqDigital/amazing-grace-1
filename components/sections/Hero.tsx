@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StoreImage from "@/components/ui/StoreImage";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { primaryCta } from "@/config/navigation";
@@ -24,7 +24,7 @@ const Hero = () => (
 
       <div className="relative mx-auto w-full max-w-[640px]">
         <div className="hero-arch relative aspect-[4/5] overflow-hidden border border-(--border-dark) bg-[#d7ccb9]">
-          <Image
+          <StoreImage slot="heroImage"
             src={heroImage}
             alt="An inviting display of antique furniture, tableware, and décor inside Amazing Grace Antiques"
             fill

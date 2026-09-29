@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import StoreImage from "@/components/ui/StoreImage";
 import ContactForm from "@/components/forms/ContactForm";
 import Button from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
@@ -56,7 +56,7 @@ export default function ContactPage() {
 
             <aside className="space-y-6" aria-label="Amazing Grace Antiques store information">
               <figure className="relative aspect-square overflow-hidden border border-(--border-dark) bg-[#d7ccb9]">
-                <Image src={signImage} alt="Amazing Grace Antiques floral storefront sign" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
+                <StoreImage slot="contactImage" src={signImage} alt="Amazing Grace Antiques floral storefront sign" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 40vw" />
               </figure>
 
               <div className="border border-(--border-dark) bg-(--cream) p-7 sm:p-9">

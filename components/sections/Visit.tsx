@@ -1,14 +1,17 @@
-import Image from "next/image";
+import { getStoreSettings } from "@/lib/cms/client";
+import StoreImage from "@/components/ui/StoreImage";
 import Button from "@/components/ui/Button";
 import Section from "@/components/ui/Section";
 import { businessConfig } from "@/config/business";
 import storefrontImage from "@/public/images/branding/storefront-sign.jpg";
 
-const Visit = () => (
+const Visit = async () => {
+  const { visitNote } = await getStoreSettings();
+  return (
   <Section id="visit" tone="cream">
     <div className="grid items-stretch gap-0 border border-(--border-dark) lg:grid-cols-[1.05fr_0.95fr]">
       <figure className="relative min-h-[25rem] overflow-hidden bg-[#d7ccb9] lg:min-h-[42rem]">
-        <Image
+        <StoreImage slot="visitImage"
           src={storefrontImage}
           alt="Amazing Grace Antiques storefront and floral sign at 205 East Frank Avenue in Lufkin"
           fill
@@ -38,6 +41,7 @@ const Visit = () => (
               </div>
             ))}
           </div>
+          {visitNote && <p className="mt-5 text-base leading-7 text-(--muted)">{visitNote}</p>}
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <Button href={businessConfig.contact.mapUrl} newTab>Get Directions</Button>
             <Button href={businessConfig.socialLinks[0].href} newTab variant="outline">Facebook</Button>
@@ -46,6 +50,7 @@ const Visit = () => (
       </div>
     </div>
   </Section>
-);
+  );
+};
 
 export default Visit;

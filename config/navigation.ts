@@ -4,7 +4,7 @@ export const navigation: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/#about" },
   { label: "Visit", href: "/#visit" },
-  { label: "Events", href: "/#events" },
+  { label: "Events", href: "/events" },
   { label: "Sell Your Antiques", href: "/sell" },
   { label: "Contact", href: "/contact" },
 ];
@@ -12,7 +12,7 @@ export const navigation: NavItem[] = [
 export const footerLinks: NavItem[] = [
   { label: "Our Story", href: "/#about" },
   { label: "Around the Shop", href: "/#shop" },
-  { label: "Happenings", href: "/#events" },
+  { label: "Happenings", href: "/events" },
   { label: "Sell an Antique", href: "/sell" },
   { label: "Visit the Store", href: "/#visit" },
   { label: "Contact", href: "/contact" },

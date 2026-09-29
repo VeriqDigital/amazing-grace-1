@@ -9,7 +9,7 @@ export const getFormString = (formData: FormData, name: string) => {
 export const hasLineBreaks = (value: string) => /[\r\n]/.test(value);
 
 export const isValidEmail = (value: string) =>
-  value.length <= 254 && emailPattern.test(value);
+  value.length <= 254 && !/[\u0000-\u001f\u007f]/.test(value) && emailPattern.test(value);
 
 export const isValidPhone = (value: string) =>
-  value.length <= 30 && phonePattern.test(value);
+  value.length <= 30 && phonePattern.test(value) && value.replace(/\D/g, "").length >= 7;

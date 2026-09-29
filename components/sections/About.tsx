@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StoreImage from "@/components/ui/StoreImage";
 import Section from "@/components/ui/Section";
 import aboutImage from "@/public/images/shop/eclectic-store-display.jpg";
 
@@ -14,7 +14,7 @@ const About = () => (
     <div className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
       <div className="relative mx-auto w-full max-w-xl lg:mx-0">
         <figure className="relative aspect-[4/5] overflow-hidden border border-(--border-dark) bg-[#d7ccb9]">
-          <Image
+          <StoreImage slot="aboutImage"
             src={aboutImage}
             alt="A richly layered display of vintage textiles, framed art, furniture, and home décor"
             fill
